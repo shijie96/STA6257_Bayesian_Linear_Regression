@@ -1,0 +1,77 @@
+<<<<<<< HEAD
+---
+title: "Two Summaries of reading academic articles-W02"
+author: "Shijie Geng"
+date: '`r Sys.Date()`'
+format:
+  html:
+    code-fold: true
+course: STA 6257 - Advanced Statistical Modeling
+bibliography: references.bib # file contains bibtex for references
+#always_allow_html: true # this allows to get PDF with HTML features
+self-contained: true
+execute: 
+  warning: false
+  message: false
+editor: 
+  markdown: 
+    wrap: 72
+---
+
+# Bayesian linear regression with skew-symmetric error distribution with application to survival analysis
+
+Summary:
+In this article, the authors discuss the use of a class of skew-symmetric scale mixture of normal distribution in Bayesian linear regression models to capture the departures from normality of errors. A general non-informative prior is proposed to be used in these regression models to generate a proper posterior distribution under mild conditions.
+
+First of all, the authors discuss the characteristics of Bayesian linear models with skew-symmetric errors and a series of corresponding parameters involved in the model. The assumptions of setting possible values of the relevant parameters indicate  incorporating skewness into the residual error distribution via the skew-symmetric construction doesn't alter the presence of the posterior distribution, provided by an appropriate prior for the skewness parameter λ. Then, the role of the skewness parameter λ is discussed. The parameter λ not only has an influence on the shape of an asymmetric PDF but also controls the location and spread of PDF. When the error distribution has lighter tails, a simple solution is to test λ = 0 to identify the best and most parsimonious model for the data.
+
+The choices of four different priors for shape parameters and accelerated failure time models are also presented. Subsequently, according to the proposed model, The authors simulated a study to assess the performance of the model. There are three assumpted scenarios based on setting different possible values of scale parameter, skewness parameter and sample size for a skew-normal distribution. The results of these scenarios show when the distribution is not heavy symmetry, it is hard to identify the parameters which are correlated among them. 
+
+
+# Option Pricing Model Biases: Bayesian and Markov Chain Monte Carlo Regression Analysis
+Summary:
+
+The paper investigates systematic and unsystematic biases in option pricing models, particularly focusing on moneyness and maturity biases. It examines four models—pure jump Lévy, jump-diffusion, stochastic volatility, and GARCH—applied to the Black–Scholes–Merton framework using Bayesian regression and Markov Chain Monte Carlo (MCMC) regression. These advanced methodologies are shown to be useful in identifying biases compared to standard regression techniques. The study considers various types of option pricing models and demonstrates their performance in replicating market prices. It also discusses the distinction between normal and non-normal models based on the difference between model and market prices, with a focus on systematic and unsystematic biases. The paper concludes by highlighting the practical relevance of the findings for arbitrage and large positions, advocating for the use of non-normal models in times of market turbulence.
+
+---
+
+## 
+=======
+---
+title: "Two Summaries of reading academic articles-W02"
+author: "Shijie Geng"
+date: '`r Sys.Date()`'
+format:
+  html:
+    code-fold: true
+course: STA 6257 - Advanced Statistical Modeling
+bibliography: references.bib # file contains bibtex for references
+#always_allow_html: true # this allows to get PDF with HTML features
+self-contained: true
+execute: 
+  warning: false
+  message: false
+editor: 
+  markdown: 
+    wrap: 72
+---
+
+# Bayesian linear regression with skew-symmetric error distribution with application to survival analysis
+
+Summary:
+In this article, the authors discuss the use of a class of skew-symmetric scale mixture of normal distribution in Bayesian linear regression models to capture the departures from normality of errors. A general non-informative prior is proposed to be used in these regression models to generate a proper posterior distribution under mild conditions.
+
+First of all, the authors discuss the characteristics of Bayesian linear models with skew-symmetric errors and a series of corresponding parameters involved in the model. The assumptions of setting possible values of the relevant parameters indicate  incorporating skewness into the residual error distribution via the skew-symmetric construction doesn't alter the presence of the posterior distribution, provided by an appropriate prior for the skewness parameter λ. Then, the role of the skewness parameter λ is discussed. The parameter λ not only has an influence on the shape of an asymmetric PDF but also controls the location and spread of PDF. When the error distribution has lighter tails, a simple solution is to test λ = 0 to identify the best and most parsimonious model for the data.
+
+The choices of four different priors for shape parameters and accelerated failure time models are also presented. Subsequently, according to the proposed model, The authors simulated a study to assess the performance of the model. There are three assumpted scenarios based on setting different possible values of scale parameter, skewness parameter and sample size for a skew-normal distribution. The results of these scenarios show when the distribution is not heavy symmetry, it is hard to identify the parameters which are correlated among them. 
+
+
+# Option Pricing Model Biases: Bayesian and Markov Chain Monte Carlo Regression Analysis
+Summary:
+
+The paper investigates systematic and unsystematic biases in option pricing models, particularly focusing on moneyness and maturity biases. It examines four models—pure jump Lévy, jump-diffusion, stochastic volatility, and GARCH—applied to the Black–Scholes–Merton framework using Bayesian regression and Markov Chain Monte Carlo (MCMC) regression. These advanced methodologies are shown to be useful in identifying biases compared to standard regression techniques. The study considers various types of option pricing models and demonstrates their performance in replicating market prices. It also discusses the distinction between normal and non-normal models based on the difference between model and market prices, with a focus on systematic and unsystematic biases. The paper concludes by highlighting the practical relevance of the findings for arbitrage and large positions, advocating for the use of non-normal models in times of market turbulence.
+
+---
+
+## 
+>>>>>>> a25f9c086844b191d9c1473bea99f69b9bcf9b19

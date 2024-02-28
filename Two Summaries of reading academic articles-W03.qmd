@@ -1,0 +1,51 @@
+---
+title: "Two Summaries of reading academic articles-W03"
+author: "Shijie Geng"
+date: '`r Sys.Date()`'
+format:
+  html:
+    code-fold: true
+course: STA 6257 - Advanced Statistical Modeling
+bibliography: references.bib # file contains bibtex for references
+#always_allow_html: true # this allows to get PDF with HTML features
+self-contained: true
+execute: 
+  warning: false
+  message: false
+editor: 
+  markdown: 
+    wrap: 72
+---
+
+# Accelerating MCMC Algorithms
+
+Markov Chain Monte Carlo (MCMC) is widely used to simulate some complex distribution for Beyasian estimation. The strengths of this method are robustness and It makes sure to converge the quantity of interest under minimal conditions. However, the feature of robustness also slows the process of convergence in that the exploration of the relevant space which has a significant probability mass to uphold distribution.  Specifically, there are some factors, such as the complex shape of the target distribution, the data size, the dimension of the variables, and time requirements, which could hinder the speed of simulation. Christian P. Robert, who is the author of the article, discussed several available ways to speed up the algorithm. 
+
+Before developing the algorithm, one can initially analyze the geometry of the density associated with the given target. While these methods may seem to divert from the original goal of enhancing an existing algorithm, they facilitate nearly automated implementations. Additionally, due to the size of data sets growing these years, MCMC algorithms need to take more time to iterate the whole data sets. Scale algorithms designed in recent years aim at addressing large-scale targets by partitioning the problem into manageable or scalable components. Divide-and-conquer approaches and subsampling approaches are two groups of scale algorithms. The former approach involves dividing the entire dataset  into batches, and MCMC method runs each batch independently and finally combines all parameters together to approximate the original posterior distribution. The latter approach decreases the number of individual data point likelihood evaluations conducted at each iteration, thereby accelerating MCMC algorithms. Improving the proposal is another way to accelerate MCMC algorithms and consistent with attempting some modifications on MCMC algorithms itself rather than exploiting the output. Moreover, considering the main purpose of employing MCMC is to generate the approximations of quantities, another alternative way is to improve the quality of the approximation by reducing the variance.
+
+In conclusion, there are always opportunities to develop highly convergent MCMC algorithms by further leveraging the structure inherent in the target distribution. Most approaches discussed in the article to speed up the algorithms are based on known target density as the output of MCMC or setting limited information content. 
+
+# Reference
+
+Robert, C. P., Elvira, V., Tawn, N., & Wu, C. (2018). Accelerating MCMC algorithms. Wiley Interdisciplinary Reviews. Computational Statistics, 10(5), e1435-n/a. https://doi.org/10.1002/wics.1435.
+
+
+# A novel Bayesian Linear Regression Model for the analysis of Neuroimaging data
+
+The article first provides an overview of the challenges in diagnosing psychiatric disorders, particularly schizophrenia, due to the lack of specific biomarkers and overlapping clinical features with other disorders. It highlights the emergence of machine learning (ML) techniques, particularly Support Vector Machine (SVM) algorithms applied to neuroimaging data, for automatic diagnosis. However, the lack of interpretability in SVM results hinders pathology characterization. Feature Selection (FS) approaches, such as Recursive Feature Elimination (RFE) and L1/L2 regularizations, are commonly combined with ML models to address this issue. Yet, in neuroimaging, with large datasets and small sample sizes, existing approaches tend to overfit.
+
+To address these limitations, the paper introduces the Dual Bayesian Linear Regression model with Feature Selection (DBL-FS). This model is designed to efficiently handle high-dimensional data with a reduced number of samples, such as neuroimaging data. It incorporates an Automatic Relevance Determination (ARD) prior over the primal weights, enabling FS to remove irrelevant features. The model is formulated in the dual space, allowing it to work with large data efficiently while applying FS over the variable space. The DBL-FS model is tested on rodent data modeling schizophrenia-like brain anatomical deficits.
+
+The materials section describes the rodent MRI dataset used in the study, including healthy and pathological rats. Pathology was induced using maternal immune stimulation. Standard preprocessing techniques were applied to the MRI data.
+
+In the methods section, the DBL-FS model formulation is introduced, leveraging ideas from Bayesian Principal Component Analysis and Bayesian Canonical Correlation Analysis to endow Bayesian Linear Regression with a dual formulation and FS capabilities. Variational inference is used to approximate the posterior distribution of model variables, optimizing model parameters iteratively. Baseline methods, including Gaussian Process regression, SVM with linear kernel, and Kernelized SSHIBA, are also introduced.
+
+Finally, the discussion emphasizes the advantages of DBL-FS in characterizing neuroimaging data, particularly in detecting brain regions relevant to schizophrenia. The model's ability to incorporate expert knowledge enhances its performance and refinement of brain region selection.
+
+# Reference
+
+Belenguer-Llorens, A., Sevilla-Salcedo, C., Desco, M., Soto-Montenegro, M. L., & Gómez-Verdejo, V. (2022). A Novel Bayesian Linear Regression Model for the Analysis of Neuroimaging Data. Applied Sciences, 12(5), 2571-. https://doi.org/10.3390/app12052571.
+
+---
+
+## 

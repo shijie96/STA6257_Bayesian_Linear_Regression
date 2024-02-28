@@ -1,0 +1,157 @@
+---
+title: "Two Summaries of reading academic articles-W01"
+author: "Shijie Geng"
+date: '`r Sys.Date()`'
+format:
+  html:
+    code-fold: true
+course: STA 6257 - Advanced Statistical Modeling
+bibliography: references.bib # file contains bibtex for references
+#always_allow_html: true # this allows to get PDF with HTML features
+self-contained: true
+execute: 
+  warning: false
+  message: false
+editor: 
+  markdown: 
+    wrap: 72
+---
+
+# Summary of 'Bayesian statistics and modeling'
+
+The authors of the article 'Bayesian statistics and modeling' discussed
+some main processes involving Bayesian analysis. The following content
+in this summary will present the current understanding and cognition of
+the Bayesian analysis theory .
+
+Bayesian statistics is a branch of statistics that involves updating
+probabilities as new data becomes available. It is based on Bayes'
+theorem, which describes how to update probabilities based on prior
+knowledge and new evidence. In Bayesian modeling, statistical models are
+formulated to represent uncertainty and incorporate prior beliefs about
+parameters. The standard Bayesian process involves three primary
+parts:prior distribution P(Ө) - the probability of parameters before
+data are collected, likelihood function P(y\|Ө) - the probability of
+data as informed by the parameters, and posterior distribution P(Ө\|y) -
+the probability of parameters given the data. Formally, Bayesian theorem
+can be expressed as the following function P(Ө\|y) ∝ P(Ө)\*P(y\|Ө).
+
+Priors distribution can be classified into three types: informative,
+weakly informative, and uninformative according to previous findings and
+theoretical predictions. Taking a normal distribution as an example to
+illustrate the differences of the three types informative priors, a
+normal distribution is expressed by mean and variance which are also
+called hyperparameters. The variance is related to the informativeness
+(e.g. a distribution with 10000 variance can be viewed as a flat
+distribution). Due to the informativeness of previous knowledge, the
+impact of three types priors on posterior would be gradually smaller and
+inversely likelihood function has relatively larger influence on
+posterior. Most often, when dealing with small size data, weakly
+informative priors are always used to estimate posterior probability.
+Also, conducting a sensitivity prior analysis to assess the implication
+on posterior probability is necessary. Most research surrounding
+bayesian analysis only focuses on priors, but the importance of
+likelihood function often is gotten rid from the discussion. 
+
+Once the prior and likelihood are specified, the posterior distribution
+for a particular model can be obtained. Posterior predictive checking is
+an important step to assess whether the new generated data based on the
+posterior distribution resemble the observed data. This can be achieved
+through comparing the kernel density estimates of the observed data and
+generated data. Another point regarding the necessity of Posterior
+predictive checking is to evaluate whether the model is valid to
+calibrate the future events and make correct predictions beyond the
+observed data. However, a risk that should be aware here is when Using
+the posterior distributions of a specific model which can simulate
+posterior predictive distributions for both observed and future data.
+These predictions naturally become more uncertain as they extend further
+into the future due to the accumulation of uncertainty.
+
+### References
+
+van de Schoot, R., Depaoli, S., King, R., Kramer, B., Märtens, K.,
+Tadesse, M. G., Vannucci, M., Gelman, A., Veen, D., Willemsen, J., &
+Yau, C. (2021). Bayesian statistics and modeling. Nature Reviews Methods
+Primers, 1(1). https://doi.org/10.1038/s43586-020-00001-2
+
+# Summary of 'Bayesian Estimation and Inference: A User's Guide'
+
+In the article 'Bayesian Estimation and Inference: A User's Guide',
+Michael J.Zyphur mainly explains the theories of Bayesian analysis and
+compares the differences between Bayesian and frequentist from three
+dimensions - probability, estimation, and inference. The following
+article will summarize the main differences in these three dimensions
+between Bayesian and frequentist.
+
+### Probability
+
+Bayesian probability indicates degrees of belief or knowledge, but
+frequentist probability is related to the frequency of something
+happening an infinite number of times. The different perspectives to the
+statement, 'There is a 0.5 probability that a fair coin will land
+heads', further illustrates the discrepancy between the two theories of
+probability. In Bayesian theory, a coin only has a head and a tail and
+is evenly divided. Whereas, in frequentist theory, 50% probability means
+when a coin is flipped an unlimited number of times, the frequency of
+one side is 50%. Also, the interpretation to the parameters of the
+linear regression model ( y = β0 + β1 + ε) is different as well due to
+these two different theories of probability. The frequentist would
+assume if the null hypothesis β is equal to 0 or not and the result of
+p-value only illustrates the probability of the estimated effect, giving
+the null is true. However, Bayesian probability directly makes a
+statement  of the probability of parameters. 
+
+### Estimation and Inference
+
+For Bayesian estimation, once a prior has been specified, the estimation
+of posterior probability distribution can be computed for plenty of
+models. In the article, Michael J.Zyphur also provides a flipping-coin
+example to interpret the logic behind the computation of Bayesian
+estimation. Suppose there are two hypotheses in θ which are 'H1: a coin
+is fair' and 'H2: a coin always shows head', and the probabilities of
+the two hypotheses are 0.99 and 0.01 respectively. The final estimation
+of posterior probability shows that with small size data, the prior
+distribution would dominate the estimation and in contrast with large
+size data, the likelihood dominates the posterior probability. Also, the
+figures of this example indicate that the peak of posterior probability
+distribution always lies between the peak of prior distribution and the
+likelihood regardless of the types of prior. Bayesian inference is a
+process to update someone's knowledge based on new data. Two ways are
+offered to make inference. One is the credibility interval which is used
+to examine if a null value falls in a 95% or 99% interval, which is
+directly associated with the probability of null and different from
+traditional confidence intervals. Comparing different models which can
+be achieved with posterior predictive checking( ppc) is the other way to
+make inference. PPC leverages posterior estimates to generate the same
+size data as the observed data and the probability of generated data and
+observed data are estimated with χ2 value. The  difference of χ2 value
+between generated data and observed data can be an indicator to evaluate
+the quality of model fit. 
+
+For frequentist estimation and inference, frequentist probability refers
+to data rather than the parameters and doesn't require priors.
+Considering the null hypothesis β=0 in a linear regression, frequentist
+probability is not directly related to a specific parameter but to the
+probability of data given a parameter. Because of this attribute,
+uncertainty in frequentist estimates would be reduced as sample size
+increases. In addition, when uninformative prior involves Bayesian
+estimation, the estimates of Bayesian and frequentist converge due to
+likelihoods dominate posteriors.
+
+### References
+
+## Zyphur, M. J., & Oswald, F. L. (2015). Bayesian Estimation and Inference: A User's Guide. Journal of Management, 41(2), 390--420. https://doi.org/10.1177/0149206313501200
+
+## 
+
+\
+
+## 
+
+### 
+
+## 
+
+\
+
+\
