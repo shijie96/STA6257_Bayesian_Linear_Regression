@@ -100,42 +100,81 @@ used[@zhang2022long]. It also can be helpful to predict genetic values
 for genomic selection for plants and animals to prevent the risk of
 passing on genes that could cause illnesses [@perez2010genomic].
 
-## 2. Methods
+## 2. Methods (Draft)
 
-The common non-parametric regression model is
-$Y_i = m(X_i) + \varepsilon_i$, where $Y_i$ can be defined as the sum of
-the regression function value $m(x)$ for $X_i$. Here $m(x)$ is unknown
-and $\varepsilon_i$ some errors. With the help of this definition, we
-can create the estimation for local averaging i.e. $m(x)$ can be
-estimated with the product of $Y_i$ average and $X_i$ is near to $x$. In
-other words, this means that we are discovering the line through the
-data points with the help of surrounding data points. The estimation
-formula is printed below [@R-base]:
+### 2.1 Linear Regression
 
-$$
-M_n(x) = \sum_{i=1}^{n} W_n (X_i) Y_i  \tag{1}
-$$ $W_n(x)$ is the sum of weights that belongs to all real numbers.
-Weights are positive numbers and small if $X_i$ is far from $x$.
+Regression analysis is a statistical method that allows to examine the
+relationship between two or more variables of interest. Suppose the
+response variable $y$ is a function of several predictor variables,
+$x_{i1}, x_{i2},..., x_{ik}$.
 
-Another equation:
+To fit a model:
 
 $$
-y_i = \beta_0 + \beta_1 X_1 +\varepsilon_i
+y = X \beta + \epsilon
 $$
+
+where,
+
+$y = (y_1, y_2,..., y_n)$ is the n×1 vector of response; $x$ is a n×p
+design matrix, $p = k+1$; $\beta = (\beta_0, \beta_1,...., \beta_{k})$
+is the k+1×1 vector of parameters and
+$\epsilon = (\epsilon_1, \epsilon_2,...., \epsilon_n)$ the n×1 vector of
+errors, $\epsilon$ \~ $N_n(0, \sigma^2I)$.
+
+The likelihood function of $y$ given $\beta$ and $\sigma^2$ is defined
+as follows
+
+$$
+f(Y_i = y_i|x, \beta, \sigma^2) = f_y(y|x,\beta,\sigma^2) = (2\pi\sigma^2)^{-\frac{n}{2}} exp^{-\frac{1}{2\sigma^2}(y-x\beta)^T(y-x\beta)}
+$$
+
+### 2.2 Beyasian Linear Regression
+
+From the Bayesian perspective, linear regression is approached through
+probability distributions. Instead of estimating the response variable,
+y, as a single value, it's viewed as being drawn from a probability
+distribution. In Bayesian Linear Regression, the model assumes that the
+response follows a normal distribution, expressed as
+
+$$
+y \sim N(\beta^TX, \sigma^2I)
+$$
+
+where,
+
+y, assumed as a normal distribution centered by its mean and variance.
+In linear regression, the mean is calculated by the transpose of the
+weight matrix and the predictor matrix. The variance is determined by
+squaring the standard deviation $\sigma$ and then multiplying it by the
+identity matrix.
+
+Also, the parameters in the model are generated from a probability
+distribution. The posterior probability of these parameters is
+proportional to the prior and likelihood.
+
+$$
+P(\beta|y, X) = \frac{P(y|\beta, X) × P(\beta|X)}{P(y|X)}
+$$
+
+....
 
 ## 3. Analysis and Results
 
 ### 3.1 Data Introduction
 
-The heart disease data set comprises four distinct databases: Cleveland,
-Hungary, Switzerland, and Long Beach V. There are a total of 303
-patients with the presence of heart disease or not tested by 13 features
-contributing to the whole data set. The target variable refers to the
-presence of heart disease in the patient. It is integer valued 0 = no
-disease and 1,2,3,4 = disease. In subsequent sections, we will conduct
-exploratory data analysis, develop a BLR model to predict the target
-variable, and assess the model's performance, among other analyses. The
-below Table 1 shows the description of the data set.
+Our dataset encompasses data on heart disease, comprising 14 variables.
+Derived from clinical and noninvasive test results, our dataset
+comprises information from 303 patients who underwent angiography at the
+Cleveland Clinic in Cleveland, Ohio. The participants' ages span from 29
+to 77 years, with a median age of 56 and an average age of 55. Among the
+303 participants, 206 are male, and 97 are female. The target variable
+refers to the presence of heart disease in the patient. It is integer
+valued 0 = no disease and 1,2,3,4 = disease. In subsequent sections, we
+will conduct exploratory data analysis, develop a BLR model to predict
+the target variable, and assess the model's performance, among other
+analyses. The below Table 1 shows the description of the data set.
 
 ![Table. 1 Dataset
 Description](https://lh7-us.googleusercontent.com/w_TQFxzMVCpOAdKTxw7vxUXzZi_namN5OuK14NUh5fJibDYhYWh8xZujOpoJUKxL0HQsA9OD0c1ZdNGSgfbM0p6jnzsOH7ihk7T6UTp8vkcufQwCVPyu2KkxK9t4WPOAUDuS3OapvsKdzoVarR12aXE){fig-align="center"}
@@ -147,7 +186,7 @@ library(gtsummary)
 library(skimr)
 library(randomForest)
 library(GGally)
-
+library(corrplot)
 ```
 
 3.1.1 Load the dataset and inspect the first five records.
@@ -164,26 +203,7 @@ str(hd_data)
 
 ```
 
-3.1.2 Transform the continuous-valued variables into numeric format and
-convert the categorical variables into factors.
-
-```{r,warning=FALSE, echo=T, message=FALSE}
-hd_data$sex <- as.factor(hd_data$sex)
-hd_data$cp <- as.factor(hd_data$cp)
-hd_data$fbs <- as.factor(hd_data$fbs)
-hd_data$restecg <- as.factor(hd_data$restecg)
-hd_data$exang <- as.factor(hd_data$exang)
-hd_data$slope <- as.factor(hd_data$slope)
-hd_data$ca <- as.factor(hd_data$ca)
-hd_data$thal <- as.factor(hd_data$thal)
-hd_data$num <- as.factor(hd_data$num)
-hd_data$chol <- as.numeric(hd_data$chol)
-hd_data$age <- as.numeric(hd_data$age)
-hd_data$trestbps <- as.numeric(hd_data$trestbps)
-hd_data$thalach <- as.numeric(hd_data$thalach)
-```
-
-### 3.2 Exploration Data Analyses
+### 3.2 Exploration Data Analysis
 
 3.2.1 Summarize the Dataset
 
@@ -226,114 +246,99 @@ skim(hd_data)
 As observed, the summary provides a comprehensive overview of the
 dataset's structure. Table 2 presents the distribution of patients
 across various levels of heart disease, along with the mean and standard
-deviation of numeric variables, and the proportions of different levels
-in categorical variables. Additionally, the second summary offers
+deviation of numeric variables. Additionally, the second summary offers
 descriptive statistics, including the presence of missing values in the
 "Ca" and "thal" variables, as well as the five quantiles of numeric
-variables and their histogram distributions. However, due to the broad
-range of each bin, it becomes challenging to discern finer details of
-these numeric variables. Consequently, the next step involves refining
-the bin sizes to explore additional information.
+variables and their histogram distributions.
 
-3.2.2 Outliers Detection of Numeric Variables
+3.2.2 Verify the correlation among variables.
 
 ```{r}
-par(mfrow = c(2,5))
-hist(hd_data$age, breaks = 45, col = 'lightblue', xlab = 'Age', main = 'Histogram of Age')
-boxplot(hd_data$age, main = 'Boxplot of Age')
-hist(hd_data$trestbps, breaks = 45, col = 'lightblue', xlab = 'trestbps', main = 'Histogram of trestbps' )
-boxplot(hd_data$trestbps, main = 'Boxplot of trestbps')
-hist(hd_data$chol, breaks = 45, col = 'lightblue',xlab = 'chol', main = 'Histogram of chol')
-boxplot(hd_data$chol, main = 'Boxplot of chol')
-hist(hd_data$thalach , breaks =45, col = 'lightblue',xlab = 'thalach', main = 'Histogram of thalach')
-boxplot(hd_data$thalach, main = 'Boxplot of thalach')
-hist(hd_data$oldpeak, breaks = 45, col = 'lightblue', xlab = 'oldpeak', main = 'Histogram of oldpeak')
-boxplot(hd_data$oldpeak, main = 'Boxplot of oldpeak')
+hd_data_noNA <- na.omit(hd_data)
 
-# Identify the outliers and replace the outliers with NA values
+corr_hd_data<-cor(hd_data_noNA)
+corrplot(corr_hd_data, method='color')
+hd_data_BLR <- hd_data_noNA %>% select(age, sex, cp, oldpeak, thalach, num)
 
-hd_data$trestbps[which(hd_data$trestbps > 170)] <- NA
-hd_data$chol[which(hd_data$chol >380)] <- NA
-hd_data$oldpeak[which(hd_data$oldpeak > 4)] <- NA
 ```
 
-The visualizations indicate that certain values on the right side of the
-histograms for 'trestbps', 'chol', and 'oldpeak' are noticeably
-different from the main distribution. Additionally, it's easier to
-identify points above the fifth quantile in the boxplots for these three
-variables. These points represent outliers, which have been replaced
-with NA values.
+After conducting a correlation analysis, we identified three variables
+strongly associated with heart disease. The variables cp (chest pain
+type), oldpeak (st depression induced by exercise relative to rest),
+thalach (maximum heart rate achieved), and age were chosen via the
+correlation matrix below due to a highly negative correlation (thalach)
+or a slightly to highly positive correlation (cp, oldpeak, age).
 
-3.2.3 Missing Values Imputation
+3.2.3 Data Visualization
 
-```{r}
-# Recategorize the target variable and modify its data type.
-hd_data$num <- ifelse(hd_data$num == 0, 'no_hd', 'hd')
-hd_data$num <- as.factor(hd_data$num)
-
-# Missing Values Imputation
-set.seed(123)
-hd_data.Imputed <- rfImpute(num~., data = hd_data, iter = 6)
+```{r, warning=FALSE}
+boxplot(age~sex,data=hd_data_BLR, main="Patient Age by Sex", horizontal = TRUE, col=c("orange","green"),ylim=c(20,80), xlab = "Age (years)", ylab = "Sex (1=Male, 0=Feale)")
+h <- hist(hd_data_BLR$age, main="Patient Age Distribution", xlim=c(20, 80), ylim=c(0,80),xlab="Age (years)", col="darkmagenta")
+text(h$mids,h$counts,labels=h$counts, adj=c(0.5, -0.5))
 ```
 
-In the preceding step, the rfImpute function is utilized to fill in new
-values for the missing data. The Out-of-Bag error falls within the range
-of 15% to 18%, which indicates relatively good performance.
-
-3.2.4 Verify the correlation among variables.
-
-```{r,warning=FALSE,message=FALSE,echo=T}
-hd_data.Imputed %>%  ggpairs(mapping = aes(color = num),
-          columns = 2:14,
-          upper = list(continuous = "cor", discrete = "count", na = "na"),
-          lower = list(continuous = "points", discrete = "facetbar", na =
-    "na"),
-          diag = list(continuous = "densityDiag",  na = "naDiag"),
-          )
-  
-```
-
-The visualization illustrates the correlation coefficients among the
-numeric variables. Among these, three pairs of numerical
-variables---trestbps and thalach, chol and thalach, chol and
-oldpeak---show insignificant correlation. Conversely, the remaining
-pairs of numerical variables exhibit significant correlation.
-
-3.2.5 Data Visualization
-
-```{r}
-hd_data.Imputed %>% 
-  ggplot(aes(x = num, y = age, fill = cp)) + 
-  geom_boxplot(alpha = 0.5) + 
-  facet_wrap(~ sex, scales = 'free')+
-  xlab('HeartDisease') +
-  theme_bw()
-```
-
-Based on the visualization, patients' ages span from 45 to 65 years. The
-age of patients with the heart disease presence is relatively higher
-than the other group, but not significantly. The median age of patients
-with heart disease in male and female groups is around 60 years old, the
-patients without heart disease is a little lower than 60 years old.
-Compared to the 4 levels chest pain groups, the median age of patients
-with atypical angina but without heart disease is lower than the other
-three groups, and the median age of patients with typical angina but
-without heart disease is the highest.
+One important factor to consider is the distribution of age and sex of
+the patients included in the data set. Of the two charts above, the
+boxplot shows the age distribution for the patients included in the
+study broken down by sex and the histogram shows the distribution of
+patient's age without sex taken into account. Within the dataset, there
+is a wider age distribution for the male patients and there is a higher
+mean for female patient age. Of the ages present in the study, more than
+60% of the participants are above the age of 50.
 
 ```{r, warning=FALSE, message=FALSE}
-hd_data.Imputed %>% group_by(num, restecg) %>% summarise(trestbps = mean(trestbps),
-                                                         oldpeak = mean(oldpeak)) %>%  
-  ggplot(aes(x = restecg, y = trestbps, color = num)) + 
-  geom_point(aes(size = oldpeak)) +
-  xlab('resting electrocardiographic results ') +
-  ylab('resting blood pressure') +
-  theme_bw()
+hd_data_BLR$age_category <- cut(hd_data_BLR$age, breaks = seq(20, 80, by = 10),
+                    labels = c("20-29", "30-39", "40-49", "50-59", "60-69", "70-79"))
+
+ggplot(hd_data_BLR, aes(x = factor(num), fill = age_category)) +
+  geom_bar(position = "dodge", color = "black") +
+  facet_wrap(~ sex) + 
+  labs(title = "Frequency of Heart Disease Presence by Age Category and Sex",
+       x = "Presence of Heart Disease",
+       y = "Frequency",
+       fill = "Age Category") +
+  theme_minimal()
+
 ```
 
-This graph reveals the relationship among trestbps, oldpeak and restecg.
-Patients with level 1 restecg tends to appeare higher resting blood
-pressure. The resting blood pressure of patients without heart disease
-is lower that patients with heart disease. Moreover, patients with heart
-disease usually have higher level oldpeak. \### Conclusion
+As observed, the age of patients with heart disease present more
+concentrated on 50-69. In the group of patients without heart disease,
+patients aged in the range of 40-69 occupy a larger proportion. Compared
+the heart disease present and absence between male and female, there are
+more male patients.
+
+```{r}
+hd_data_BLR$cp <- factor(hd_data_BLR$cp, levels = c(1, 2, 3, 4), labels = c("Typical Angina", "Atypical Angina", "Non-anginal Pain", "Asymptomatic"))
+
+ggplot(hd_data_BLR, aes(x = cp, fill = factor(num))) +
+  geom_bar(position = "dodge", color = "black") +
+  labs(title = "Frequency of Heart Disease Presence by Chest Pain Type",
+       x = "Chest Pain Type",
+       y = "Frequency",
+       fill = "Presence of Heart Disease") +
+  theme_minimal()
+
+```
+
+The graph illustrates the relationship between chest pain and heart
+disease. Most patients with heart disease have asymptomatic, which is
+remarkable larger than the other chest pain groups. Compared the heart
+disease in each chest pain type, the frequency of patients without heart
+disease dominate in each group.
+
+```{r}
+hd_data_BLR %>% mutate(num = case_when(num == 0 ~ 'no_hd',
+                                        TRUE ~ 'hd')
+                       ) %>% filter(oldpeak >0 & oldpeak < 3) %>%
+  ggplot(aes(x = oldpeak, y = thalach) )+ geom_point(aes(color = as.factor(num)) )+ facet_wrap(~ as.factor(num))+ theme_bw()
+
+```
+
+The clusters of points highlight that the patients without heart disease
+tends to have higher maximum heart rate and lower ST depression.
+Inversely, patients with heart disease are more likely to have larger ST
+depression and lower heart disease.
+
+### Conclusion
 
 ## References
