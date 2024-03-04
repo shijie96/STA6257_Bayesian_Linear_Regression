@@ -117,7 +117,7 @@ where,
 
 $y = (y_1, y_2,..., y_n)$ is the n×1 vector of response; $x$ is a n×p
 design matrix, $p = k+1$; $\beta = (\beta_0, \beta_1,...., \beta_{k})$
-is the k+1×1 vector of parameters and
+is the (k+1)×1 vector of parameters and
 $\epsilon = (\epsilon_1, \epsilon_2,...., \epsilon_n)$ the n×1 vector of
 errors, $\epsilon$ \~ $N_n(0, \sigma^2I)$.
 
@@ -299,7 +299,7 @@ ggplot(hd_data_BLR, aes(x = factor(num), fill = age_category)) +
 ```
 
 As observed, the age of patients with heart disease present more
-concentrated on 50-69. In the group of patients without heart disease,
+concentrates on 50-69. In the group of patients without heart disease,
 patients aged in the range of 40-69 occupy a larger proportion. Compared
 the heart disease present and absence between male and female, there are
 more male patients.
@@ -321,7 +321,7 @@ The graph illustrates the relationship between chest pain and heart
 disease. Most patients with heart disease have asymptomatic, which is
 remarkable larger than the other chest pain groups. Compared the heart
 disease in each chest pain type, the frequency of patients without heart
-disease dominate in each group.
+disease dominates in each group.
 
 ```{r}
 hd_data_BLR %>% mutate(num = case_when(num == 0 ~ 'no_hd',
@@ -332,7 +332,7 @@ hd_data_BLR %>% mutate(num = case_when(num == 0 ~ 'no_hd',
 ```
 
 The clusters of points highlight that the patients without heart disease
-tends to have higher maximum heart rate and lower ST depression.
+tend to have higher maximum heart rate and lower ST depression.
 Inversely, patients with heart disease are more likely to have larger ST
 depression and lower heart disease.
 
