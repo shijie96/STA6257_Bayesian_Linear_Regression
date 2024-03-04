@@ -255,16 +255,17 @@ hd_data_noNA <- na.omit(hd_data)
 
 corr_hd_data<-cor(hd_data_noNA)
 corrplot(corr_hd_data, method='color')
-hd_data_BLR <- hd_data_noNA %>% select(age, sex, cp, oldpeak, thalach, num)
+hd_data_BLR <- hd_data_noNA %>% select(age, sex, cp, oldpeak, thalach, ca, thal,num)
 
 ```
 
-After conducting a correlation analysis, we identified three variables
+After conducting a correlation analysis, we identified six variables
 strongly associated with heart disease. The variables cp (chest pain
 type), oldpeak (st depression induced by exercise relative to rest),
-thalach (maximum heart rate achieved), and age were chosen via the
-correlation matrix below due to a highly negative correlation (thalach)
-or a slightly to highly positive correlation (cp, oldpeak, age).
+thalach (maximum heart rate achieved), ca (Major vessels) , thal
+(thalassemia), and age were chosen via the correlation matrix above due
+to a highly negative correlation (thalach) or a slightly to highly
+positive correlation (cp, oldpeak, age).
 
 3.2.3 Data Visualization
 
