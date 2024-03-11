@@ -46,7 +46,7 @@ creating a BLR can be found in Figure. 1 [@klauenberg2015tutorial]. The
 BLR method involves multiple steps-essentially, predicting prior values,
 imputting collected data, and obtaining probability in the form of a
 distribution (Posterior distribution) which is proportional to prior
-distribution multiplied by the likehood function
+distribution multiplied by the likelihood function
 [@baldwin2017introduction]. In BLR, even when utilizing representative
 or informed priors, it is crucial to perform a sensitivity analysis to
 assess the impact of different prior specifications on the posterior
@@ -55,7 +55,7 @@ choice of prior [@kruschke2021bayesian].Once the experiment is conducted
 and the posterior distribution is obtained, a check on  skewness of the
 distributions, as well as heteroscedasticity. Although scale mixtures of
 normal are often used in regression analysis to capture
-heteroscedasticity and outliers, skew-symmetric scale mixtures of normal
+heteroscedasticity and outlier, skew-symmetric scale mixtures of normal
 (SSSM) can capture asymmetrical in addition, making it more robust to
 use in BLR [@rubio2016bayesian]. The posterior distribution is where the
 Markov Chain Monte Carlo (MCMC) method involves simulating random draws
@@ -98,7 +98,7 @@ used[@zhang2022long]. It also can be helpful to predict genetic values
 for genomic selection for plants and animals to prevent the risk of
 passing on genes that could cause illnesses [@perez2010genomic].
 
-## 2. Methods (Draft)
+## 2. Methods
 
 ### 2.1 Linear Regression
 
@@ -128,7 +128,10 @@ $$
 f(Y_i = y_i|x, \beta, \sigma^2) = f_y(y|x,\beta,\sigma^2) = (2\pi\sigma^2)^{-\frac{n}{2}} exp^{-\frac{1}{2\sigma^2}(y-x\beta)^T(y-x\beta)}
 $$
 
-### 2.2 Beyasian Linear Regression
+To make inference, the $\beta$ parameters are determined by maximizing
+the likelihood function.
+
+### 2.2 Bayesian Linear Regression
 
 From the Bayesian perspective, linear regression is approached through
 probability distributions. Instead of estimating the response variable,
@@ -156,7 +159,55 @@ $$
 P(\beta|y, X) = \frac{P(y|\beta, X) × P(\beta|X)}{P(y|X)}
 $$
 
-....
+In Bayesian statistics, when the prior distribution and the posterior
+distribution belong to the same family of probability distributions,
+they are called conjugate distributions. Using the Bayes' theorem, we
+have
+
+$$
+f(\beta, \sigma^2|y,x) = \frac{f_y(y|x, \beta,\sigma^2)f(\beta|\sigma^2,m,V)f(\sigma^2|a,b)}{f_y(y)}
+$$
+
+Let's break down the equation.
+
+-   $f(\beta, \sigma^2|y,x)$: This is the joint posterior distribution
+    of the coefficients $\beta$ and the error variance $\sigma^2$ given
+    the data $y$ and the predictors $x$
+
+-   $f_y(y|x, \beta,\sigma^2)$: This is the likelihood function which
+    describes the probability of observing the data $y$ given the
+    predictors $x$ and the parameters $\beta$ and $\sigma^2$.
+
+-   $f(\beta|\sigma^2,m,V)$: It represents the prior distribution for
+    coefficients $\beta$ given the error variance $\sigma^2$, with mean
+    vector $m$ and covariance matrix $V$.
+
+-   $f(\sigma^2|a,b)$: It represents the prior distribution for the
+    error variance $\sigma^2$, which is assumed to be an inverse gamma
+    distribution with parameter $a$ and $b$.
+
+-   $f_y(y)$: It is the marginal likelihood and often treated as a
+    constant.
+
+A non-conjugate prior refers to a prior distribution that does not
+belong to the same family of distributions as the posterior distribution
+after observing data. In such cases, the posterior distribution can be
+expressed as
+
+$$
+f(\beta|y, X, \sigma^2) ∝ f_y(y|X, \beta)\prod_{i=1}^{n}f(\beta_i|m_i,v_i) 
+$$
+
+-   $f(\beta|y, X, \sigma^2)$: This is the posterior distribution of
+    coefficients $\beta$ given the dependent variable $y$, independent
+    variable $X$ and error variance $\sigma^2$.
+
+-   $f_y(y|X, \beta)$: This is likelihood function, denoting the
+    probability of the observing data $y$ given independent variable $X$
+    and the coefficient parameters $\beta$.
+
+-   $f(\beta_i|m_i,v_i)$: This is prior distribution of each coefficient
+    $\beta_i$ with mean $m_i$ and variance $v_i$.
 
 ## 3. Analysis and Results
 
@@ -267,7 +318,19 @@ thalach (maximum heart rate achieved), ca (Major vessels) , thal
 to a highly negative correlation (thalach) or a slightly to highly
 positive correlation (cp, oldpeak, age).
 
-3.2.3 Data Visualization
+3.2.3 Multicollinearity Examination
+
+```{r}
+cor(hd_data_BLR)
+```
+
+We select correlation value 0.8 as the threshold of multicollinearity.
+Any value greater than 0.8 will be viewed as the presence of
+multicollinearity. As observed the correlation matrix, there are no
+values greater than 0.8,which means that there is no multicollinearity
+present in our dataset.
+
+3.2.4 Data Visualization
 
 ```{r, warning=FALSE}
 boxplot(age~sex,data=hd_data_BLR, main="Patient Age by Sex", horizontal = TRUE, col=c("orange","green"),ylim=c(20,80), xlab = "Age (years)", ylab = "Sex (1=Male, 0=Feale)")
