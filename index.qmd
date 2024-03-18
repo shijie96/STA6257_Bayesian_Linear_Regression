@@ -68,9 +68,10 @@ the validity of the samples[@marcotte2018gibbs]. After obtaining the
 posterior results, inferences can be used for the prior distribution of
 the current/next experiment [@rubio2016bayesian].
 
-![Figure. 1 Bayesian Linear Regression Workflow](images/intro_pic.png)To
-explain, posterior probabilities are assigned to the spectrum of values
-that parameters can assume. The more prominent the peak, the more
+![Figure. 1 Bayesian Linear Regression Workflow](images/intro_pic.png)
+
+To explain, posterior probabilities are assigned to the spectrum of
+values that parameters can assume. The more prominent the peak, the more
 effective it is as an estimate because a single value has a higher
 probability compared to other values. In such cases, the credibility
 interval, indicating a 95% range of probable parameter estimates, is
@@ -110,7 +111,7 @@ $x_{i1}, x_{i2},..., x_{ik}$.
 To fit a model:
 
 $$
-y = X \beta + \epsilon
+y = X \beta + \epsilon     \quad(1)
 $$
 
 where,
@@ -125,7 +126,7 @@ The likelihood function of $y$ given $\beta$ and $\sigma^2$ is defined
 as follows
 
 $$
-f(Y_i = y_i|x, \beta, \sigma^2) = f_y(y|x,\beta,\sigma^2) = (2\pi\sigma^2)^{-\frac{n}{2}} exp^{-\frac{1}{2\sigma^2}(y-x\beta)^T(y-x\beta)}
+f(Y_i = y_i|x, \beta, \sigma^2) = f_y(y|x,\beta,\sigma^2) = (2\pi\sigma^2)^{-\frac{n}{2}} exp^{-\frac{1}{2\sigma^2}(y-x\beta)^T(y-x\beta)}  \quad(2)
 $$
 
 To make inference, the $\beta$ parameters are determined by maximizing
@@ -140,7 +141,7 @@ distribution. In Bayesian Linear Regression, the model assumes that the
 response follows a normal distribution, expressed as
 
 $$
-y \sim N(\beta^TX, \sigma^2I)
+y \sim N(\beta^TX, \sigma^2I)  \quad(3)
 $$
 
 where,
@@ -156,7 +157,7 @@ distribution. The posterior probability of these parameters is
 proportional to the prior and likelihood.
 
 $$
-P(\beta|y, X) = \frac{P(y|\beta, X) × P(\beta|X)}{P(y|X)}
+P(\beta|y, X) = \frac{P(y|\beta, X) × P(\beta|X)}{P(y|X)}  \quad(4)
 $$
 
 In Bayesian statistics, when the prior distribution and the posterior
@@ -165,7 +166,7 @@ they are called conjugate distributions. Using the Bayes' theorem, we
 have
 
 $$
-f(\beta, \sigma^2|y,x) = \frac{f_y(y|x, \beta,\sigma^2)f(\beta|\sigma^2,m,V)f(\sigma^2|a,b)}{f_y(y)}
+f(\beta, \sigma^2|y,x) = \frac{f_y(y|x, \beta,\sigma^2)f(\beta|\sigma^2,m,V)f(\sigma^2|a,b)}{f_y(y)}  \quad(5)
 $$
 
 Let's break down the equation.
@@ -195,7 +196,7 @@ after observing data. In such cases, the posterior distribution can be
 expressed as
 
 $$
-f(\beta|y, X, \sigma^2) ∝ f_y(y|X, \beta)\prod_{i=1}^{n}f(\beta_i|m_i,v_i) 
+f(\beta|y, X, \sigma^2) ∝ f_y(y|X, \beta)\prod_{i=1}^{n}f(\beta_i|m_i,v_i)  \quad(6)
 $$
 
 -   $f(\beta|y, X, \sigma^2)$: This is the posterior distribution of
@@ -223,9 +224,7 @@ refers to the presence of heart disease in the patient. It is integer
 valued 0 = no disease and 1,2,3,4 = disease. In subsequent sections, we
 will conduct exploratory data analysis, develop a BLR model to predict
 the target variable, and assess the model's performance, among other
-analyses. The below Table 1 shows the description of the data set.
-
-![Table. 1 Dataset Description](images/image-6.png)
+analyses.
 
 3.1.1 Load the dataset and inspect the first five records.
 
