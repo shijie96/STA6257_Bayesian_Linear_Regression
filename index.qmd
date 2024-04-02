@@ -284,6 +284,9 @@ library(GGally)
 library(corrplot)
 library(car)
 library(ggrepel)
+library(rstan)
+library(rstanarm)
+library(bayesplot)
 ```
 
 ```{r, warning=FALSE, echo=TRUE}
@@ -487,6 +490,23 @@ Once GDP surpasses \$30,000, the upward trend in life expectancy
 continues steadily.
 
 ## Bayesian Linear Regression
+
+```{r}
+glm_post1 <- stan_glm(LifeExp~., data=BLR_data, family=gaussian)
+stan_trace(glm_post1, pars=c("(Intercept)","AdultMort", "UnFiveDths", "InfDth","GDP", "BMI", "DTP3", "Pol3", "Schooling", "HIVAids","sigma"))
+```
+
+```{r}
+summary(glm_post1)
+```
+
+```{r}
+pp_check(glm_post1) #The dark blue line shows the observed data while the light blue lines are simulations from the posterior predictive distribution.
+```
+
+```{r}
+stan_hist(glm_post1, pars=c("(Intercept)","AdultMort", "UnFiveDths", "InfDth","GDP", "BMI", "DTP3", "Pol3", "Schooling", "HIVAids","sigma"), bins=40)
+```
 
 ### Conclusion
 
