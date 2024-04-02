@@ -214,19 +214,65 @@ $$
 
 ### 3.1 Data Introduction
 
-Our dataset encompasses data on heart disease, comprising 14 variables.
-Derived from clinical and noninvasive test results, our dataset
-comprises information from 303 patients who underwent angiography at the
-Cleveland Clinic in Cleveland, Ohio. The participants' ages span from 29
-to 77 years, with a median age of 56 and an average age of 55. Among the
-303 participants, 206 are male, and 97 are female. The target variable
-refers to the presence of heart disease in the patient. It is integer
-valued 0 = no disease and 1,2,3,4 = disease. In subsequent sections, we
-will conduct exploratory data analysis, develop a BLR model to predict
-the target variable, and assess the model's performance, among other
-analyses.
+The selected Life Expectancy dataset from the World Health Organization
+(WHO) comprises of 19 health, economic, and social factors taken from
+193 countries between years 2000 and 2015, as described below:
 
-3.1.1 Load the dataset and inspect the first five records.
+-   **Country:** List of the 179 countries.
+
+-   **Region:** 179 countries are distributed in 9 regions.
+
+-   **Year:** Years observed from 2000 to 2015.
+
+-   **Infant Deaths (InfDth):** Represents infant deaths per 1000
+    population.
+
+-   **Under_five_deaths (UnFiveDths):** Represents deaths of children
+    under five years old per 1000 population.
+
+-   **Adult Mortality (AdultMort):** Represents deaths of adults per
+    1000 population.
+
+-   **Alcohel_consumption:** Represents alcohol consumption that is
+    recorded in liters of pure alcohol per capita with 15+ years old.
+
+-   **Hepatites_B:** Represents % of coverage of Hepatitis B (HepB3)
+    immunization among 1-year-olds.
+
+-   **Measles:** Represents % of coverage of Measles containing vaccine
+    first dose (MCV1) immunization among 1-year-olds.
+
+-   **BMI:** BMI is a measure of nutritional status in adults.
+
+-   **Polio (Pol3):** Represents % of coverage of Polio (Pol3)
+    immunization among 1-year-olds.
+
+-   **Diphtheria (DTP3):** Continuous, percentage of diphtheria tetanus
+    toxoid and pertussis (DTP3) immunization coverage among 1-year-olds.
+
+-   **Diphtheria (DTP3):** Represents % of coverage of Diphtheria
+    tetanus toxoid and pertussis (DTP3) immunization among 1-year-olds.
+
+-   **Incidents_HIV (HIVAids):** Incidents of HIV per 1000 population
+    aged 15-49.
+
+-   **GDP_per_capita (GDP):** GDP per capita in current USD.
+
+-   **Population_mln (Population):** Total population in millions.
+
+-   **Thinness_ten_nineteen_years (ThinAd):** Prevalence of thinness
+    among adolescents aged 10-19 years
+
+-   **Thinness_five_nine_years (ThinChild):** Prevalence of thinness
+    among children aged 5-9 years.
+
+-   **Schooling:** Average years that people aged 25+ spent in formal
+    education.
+
+-   **Life_expectancy (LifeExp):** Average life expectancy of both
+    genders in different years from 2010 to 2015.
+
+#### 3.1.1 Load the dataset and inspect the first five records.
 
 ```{r, warning=FALSE, echo=T, message=FALSE}
 # loading packages 
@@ -236,39 +282,44 @@ library(skimr)
 library(randomForest)
 library(GGally)
 library(corrplot)
+library(car)
+library(ggrepel)
 ```
 
 ```{r, warning=FALSE, echo=TRUE}
-# Load Data
-hd_data<-read.csv("C:/Users/shiji/OneDrive/桌面/capstone data science/processedcleveland.csv", header=FALSE)
-names(hd_data) <- c("age", "sex", "cp", "trestbps", "chol", 
-                   "fbs", "restecg", "thalach", "exang", "oldpeak", 
-                   "slope", "ca", "thal", "num")
-head(hd_data)
-str(hd_data)
-  
+# Read CSV file directly from a website URL
+url = "C:/Users/shiji/OneDrive/桌面/STA6257_capstone/Life-Expectancy-Data-Updated.csv"
+ledata = read.csv(url, header = TRUE)
+ledata <- ledata %>% select(-c('Economy_status_Developed', 'Economy_status_Developing'))
 
+names(ledata) <- c("Country", 'Region',"Year", "InfDth","UnFiveDths","AdultMort", "Alcohol","HepB","Measles","BMI","Pol3", "DTP3", "HIVAids", "GDP", "population","ThinAd","ThinChild","Schooling", "LifeExp")
+str(ledata)
 ```
 
 ### 3.2 Exploration Data Analysis
 
-3.2.1 Summarize the Dataset
+#### 3.2.1 Summarize the Dataset
 
 ```{r, warning=FALSE, echo=T, message=FALSE}
-hd_data %>% 
+ledata %>% select(-c('Country', 'Year')) %>%
   tbl_summary(
-    by=num,
-    label = list(age ~"Age (yrs)", sex~"Sex: Male", 
-                 cp ~ "Chest Pain Type",
-                 trestbps~ "Resting Blood Pressure (mmHg)", 
-                 chol~ "Serum Cholestoral (mg/dl)",
-                 fbs~"Fasting Blood Sugar>120 mg/dl", 
-                 restecg ~ "Resting Electrocardiographic",
-                 exang~"Exercise Induced Angina", 
-                 oldpeak~"Exercise Induced ST depression",
-                 slope~"Peak Exercise ST Slope", 
-                 ca~"Major Vessel Count", 
-                 thal~"Defect Presence (3=normal)"),
+    by = Region,
+    label = list(InfDth ~ "Infant Deaths, per 1000",
+                 UnFiveDths ~ "Deaths under 5 years of age",
+                 AdultMort ~ "Adult Mortality Probability",
+                 Alcohol ~ "Alcohol Consumption (L)",
+                 HepB ~ "Hepatitis B Immunization (%)",
+                 Measles ~ "Measles Cases per 1000",
+                 BMI ~ "Average Body Mass Index", 
+                 Pol3 ~ "Polio immunization (%)", 
+                 DTP3 ~ "Diphtheria Tetanus Toxoid and Pertussis immunization (%)", 
+                 HIVAids ~ "Deaths per 1000 live births HIV/AIDs",
+                 GDP ~ "Gross Domestic Product (USD)",
+                 population ~ "Total population of the country", 
+                 ThinAd ~ "Thinness among 10-19 years (%)",
+                 ThinChild ~ "Thinness among 5-9 years (%)",
+                 Schooling ~ "Average Years of Schooling",
+                 LifeExp ~ "Life Expectancy (yrs)"),
     missing_text = "(Missing)",
     statistic = list(
       all_continuous()~ "{mean} ({sd})",
@@ -278,126 +329,164 @@ hd_data %>%
   add_n()%>%
   add_overall()%>%
   modify_header(label="**Variable**") %>%
-  modify_spanning_header(c("stat_2", "stat_3", "stat_4", "stat_5")~ "**Heart Disease Present**")%>%
-  modify_spanning_header(c("stat_1")~ "**Heart Disease Absent**") %>%
-  modify_caption("**Table 2. Patient Characteristics**") %>%
+  modify_caption("**Table 1. Dataset Summary**") %>%
   modify_footnote(all_stat_cols()~ "Mean (SD) or n/N(%)") %>%
   bold_labels()
-
 ```
+
+#### 3.2.2 Verify the correlation among variables.
 
 ```{r}
-skim(hd_data)
+ledata_noNA <- na.omit(ledata)
+co_ledata <- ledata_noNA %>% select(-c('Country', 'Region', 'Year'))
+cor(co_ledata)
+corrplot::corrplot(cor(co_ledata), method = 'color')
 ```
 
-As observed, the summary provides a comprehensive overview of the
-dataset's structure. Table 2 presents the distribution of patients
-across various levels of heart disease, along with the mean and standard
-deviation of numeric variables. Additionally, the second summary offers
-descriptive statistics, including the presence of missing values in the
-"Ca" and "thal" variables, as well as the five quantiles of numeric
-variables and their histogram distributions.
+After conducting a correlation analysis, we identified that the
+variables of AdultMort, UnFiveDths and InfDth strongly associated with
+Life Expectancy. The variable population is not related to
+LifeExpectancy at all. We consider setting threshold of correlation
+value as 0.55. Any variables' correlation with response greater than
+0.55 can be included for Bayesian Linear Regression. Thus, GDP, BMI,
+DTP3, Pol3, schooling, and HIVAids also can be used to predict
+LifeExpectancy.
 
-3.2.2 Verify the correlation among variables.
+#### 3.2.3 Multicollinearity Examination
 
 ```{r}
-hd_data_noNA <- na.omit(hd_data)
-
-corr_hd_data<-cor(hd_data_noNA)
-corrplot(corr_hd_data, method='color')
-hd_data_BLR <- hd_data_noNA %>% select(age, sex, cp, oldpeak, thalach, ca, thal,num)
-
+vif_data <- ledata_noNA %>% select(-c('Year', 'Country', 'population'))
+olr <- lm(LifeExp ~., data = vif_data)
+vif(olr)
+BLR_data <- ledata_noNA %>% select(c(AdultMort, UnFiveDths, InfDth,GDP, BMI, DTP3, Pol3, Schooling, HIVAids,LifeExp))
 ```
 
-After conducting a correlation analysis, we identified six variables
-strongly associated with heart disease. The variables cp (chest pain
-type), oldpeak (st depression induced by exercise relative to rest),
-thalach (maximum heart rate achieved), ca (Major vessels) , thal
-(thalassemia), and age were chosen via the correlation matrix above due
-to a highly negative correlation (thalach) or a slightly to highly
-positive correlation (cp, oldpeak, age).
+Through checking the multicollinearity among these variables, the vif
+values of InfDth and UnFiveDths are slightly greater than 5, indicating
+significant multicollinearity between them, but we think they are
+acceptable. Thus, given the results of correlation and multicollinearity
+checking, We select the independent variables of AdultMort, UnFiveDths,
+InfDth,GDP, BMI, DTP3, Pol3, schooling and HIVAid and dependent variable
+of LifeExpentency to contribute to our final dataset used for BLR
+analysis.
 
-3.2.3 Multicollinearity Examination
-
-```{r}
-cor(hd_data_BLR)
-```
-
-We select correlation value 0.8 as the threshold of multicollinearity.
-Any value greater than 0.8 will be viewed as the presence of
-multicollinearity. As observed the correlation matrix, there are no
-values greater than 0.8,which means that there is no multicollinearity
-present in our dataset.
-
-3.2.4 Data Visualization
+#### 3.2.4 Data Visualization
 
 ```{r, warning=FALSE}
-boxplot(age~sex,data=hd_data_BLR, main="Patient Age by Sex", horizontal = TRUE, col=c("orange","green"),ylim=c(20,80), xlab = "Age (years)", ylab = "Sex (1=Male, 0=Feale)")
-h <- hist(hd_data_BLR$age, main="Patient Age Distribution", xlim=c(20, 80), ylim=c(0,80),xlab="Age (years)", col="darkmagenta")
-text(h$mids,h$counts,labels=h$counts, adj=c(0.5, -0.5))
+hist(ledata_noNA$LifeExp, 
+     main = "Distribution of Life Expectancy",
+     xlab = "Life Expectancy",
+     border = "white", 
+     col = "lightblue",
+     ylim = c(0, 800))
 ```
 
-One important factor to consider is the distribution of age and sex of
-the patients included in the data set. Of the two charts above, the
-boxplot shows the age distribution for the patients included in the
-study broken down by sex and the histogram shows the distribution of
-patient's age without sex taken into account. Within the dataset, there
-is a wider age distribution for the male patients and there is a higher
-mean for female patient age. Of the ages present in the study, more than
-60% of the participants are above the age of 50.
+Life Expectancy follows a distribution skewed to the left, with the peak
+occurring at 70-75 years for the highest life expectancy.
 
 ```{r, warning=FALSE, message=FALSE}
-hd_data_BLR$age_category <- cut(hd_data_BLR$age, breaks = seq(20, 80, by = 10),
-                    labels = c("20-29", "30-39", "40-49", "50-59", "60-69", "70-79"))
+# Calculate max, mean, and min life expectancy by year and region
+life_expectancy_summary <- ledata_noNA %>%
+  group_by(Year, Region) %>%
+  summarise(
+    mean_life_expectancy = mean(LifeExp) )
 
-ggplot(hd_data_BLR, aes(x = factor(num), fill = age_category)) +
-  geom_bar(position = "dodge", color = "black") +
-  facet_wrap(~ sex) + 
-  labs(title = "Frequency of Heart Disease Presence by Age Category and Sex",
-       x = "Presence of Heart Disease",
-       y = "Frequency",
-       fill = "Age Category") +
-  theme_minimal()
+# Create a line plot for max, mean, and min life expectancy in all regions over the years
+ggplot(life_expectancy_summary, aes(x = Year)) +
+  geom_line(aes(y = mean_life_expectancy, color = Region), linetype = "solid") +
+  labs(title = "Life Expectancy Over the Years by Region", x = "Year", y = "Life Expectancy", color = "Region") +
+  theme_minimal() +
+  scale_color_brewer(palette = "Set1") 
 
 ```
 
-As observed, the age of patients with heart disease present more
-concentrates on 50-69. In the group of patients without heart disease,
-patients aged in the range of 40-69 occupy a larger proportion. Compared
-the heart disease present and absence between male and female, there are
-more male patients.
+The line graph illustrates the Life Expectancy trends across various
+regions over the years. There has been a consistent rise in life
+expectancy across all regions since 2000. North America and European
+Union exhibit the highest life expectancy, while Africa shows the lowest
+among these regions.
 
 ```{r}
-hd_data_BLR$cp <- factor(hd_data_BLR$cp, levels = c(1, 2, 3, 4), labels = c("Typical Angina", "Atypical Angina", "Non-anginal Pain", "Asymptomatic"))
+ledata_noNA %>% ggplot(aes(x = Schooling, y = LifeExp)) + 
+  geom_point(size = 0.8, color = 'green') +
+  geom_smooth()+
+  theme_bw()+ 
+  xlab('Average Schooling Year')
 
-ggplot(hd_data_BLR, aes(x = cp, fill = factor(num))) +
-  geom_bar(position = "dodge", color = "black") +
-  labs(title = "Frequency of Heart Disease Presence by Chest Pain Type",
-       x = "Chest Pain Type",
-       y = "Frequency",
-       fill = "Presence of Heart Disease") +
-  theme_minimal()
+ledata_noNA %>% select(Region, Schooling, LifeExp) %>%
+ group_by(Region) %>%
+  summarise(Avg_Schooling = mean(Schooling),
+            Avg_LifeExp = mean(LifeExp)) %>%
+  ggplot(aes(x = Avg_Schooling, y = Avg_LifeExp)) +
+  geom_point(size = 2.5, color = 'blue', alpha = 0.5) +
+  theme_bw() +
+  geom_text_repel(aes(label = Region), size = 3)
 
 ```
 
-The graph illustrates the relationship between chest pain and heart
-disease. Most patients with heart disease have asymptomatic, which is
-remarkable larger than the other chest pain groups. Compared the heart
-disease in each chest pain type, the frequency of patients without heart
-disease dominates in each group.
+The graphs depict the correlation between schooling and life expectancy
+across different regions. Generally, life expectancy tends to increase
+with higher levels of schooling. Comparatively, more developed regions
+such as North America, the European Union, and the Rest of Europe
+exhibit both higher average schooling years and life expectancies.
 
 ```{r}
-hd_data_BLR %>% mutate(num = case_when(num == 0 ~ 'no_hd',
-                                        TRUE ~ 'hd')
-                       ) %>% filter(oldpeak >0 & oldpeak < 3) %>%
-  ggplot(aes(x = oldpeak, y = thalach) )+ geom_point(aes(color = as.factor(num)) )+ facet_wrap(~ as.factor(num))+ theme_bw()
+ledata_noNA %>% select(Region,InfDth, AdultMort, LifeExp) %>%
+  ggplot(aes(x = InfDth, y = LifeExp)) + 
+  geom_point(size = 0.5, color = 'orange') +
+  theme_bw() +
+  labs(title = 'Life Expectancy vs. InfDth')
 
+ledata_noNA %>% select(InfDth, AdultMort, LifeExp) %>%
+  ggplot(aes(x = AdultMort, y = LifeExp)) + 
+  geom_point(size = 0.5, color = 'orange') +
+  theme_bw() +
+  labs(title = 'Life Expectancy vs. Adult Mortality')
+
+ledata_noNA %>% 
+  ggplot(aes(x = UnFiveDths, y = LifeExp)) + 
+  geom_point(size = 0.5, color = 'orange') +
+  theme_bw() +
+  labs(title = 'Life Expectancy vs. UnderFiveDeath')
 ```
 
-The clusters of points highlight that the patients without heart disease
-tend to have higher maximum heart rate and lower ST depression.
-Inversely, patients with heart disease are more likely to have larger ST
-depression and lower heart disease.
+The graphs depict the correlation between life expectancy and the
+variables AdultMort, UnFiveDths, and InfDth. All three
+variables---AdultMort, UnFiveDths, and InfDth---exhibit a negative
+relationship with life expectancy. As the instances of AdultMort,
+UnFiveDths, and InfDth per 1000 rise, life expectancy decreases
+accordingly.
+
+```{r}
+ledata_noNA %>% 
+  ggplot(aes(x = BMI, y = LifeExp)) + 
+  geom_point(size = 0.5, color = 'orange') +
+  theme_bw() +
+  geom_smooth(method = lm) +
+  labs(title = 'Life Expectancy vs. BMI')
+
+ledata_noNA %>% 
+  ggplot(aes(x = GDP, y = LifeExp)) + 
+  geom_point(size = 0.5, color = 'orange') +
+  theme_bw() +
+  geom_smooth() +
+  labs(title = 'Life Expectancy vs. GDP')
+
+ledata_noNA %>% 
+  ggplot(aes(x = Pol3, y = LifeExp)) + 
+  geom_point(size = 0.5, color = 'orange') +
+  theme_bw() +
+  geom_smooth() +
+  labs(title = 'Life Expectancy vs. Diphtheria')
+```
+
+In general, a direct relationship typically exists between life
+expectancy and factors such as BMI and Diphtheria immunization.
+Moreover, as GDP increases, life expectancy tends to rise exponentially.
+Once GDP surpasses \$30,000, the upward trend in life expectancy
+continues steadily.
+
+## Bayesian Linear Regression
 
 ### Conclusion
 
