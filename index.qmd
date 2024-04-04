@@ -489,24 +489,64 @@ Moreover, as GDP increases, life expectancy tends to rise exponentially.
 Once GDP surpasses \$30,000, the upward trend in life expectancy
 continues steadily.
 
-## Bayesian Linear Regression
+## Bayesian Linear Regression Analysis
 
 ```{r}
-glm_post1 <- stan_glm(LifeExp~., data=BLR_data, family=gaussian)
+glm_post1 <- stan_glm(LifeExp~., data=BLR_data, family=gaussian, seed = 1234)
+
 stan_trace(glm_post1, pars=c("(Intercept)","AdultMort", "UnFiveDths", "InfDth","GDP", "BMI", "DTP3", "Pol3", "Schooling", "HIVAids","sigma"))
 ```
+Each trace plot to each variable appears centered around one value and all chains are well overlapping around one value.
 
+#### Checking R hat.
 ```{r}
 summary(glm_post1)
 ```
 
+R Hat compares the variability in sampled parameter estimates across all chains combined with the variability within each individual change. $R = 1$ shows stability across chains.
+
 ```{r}
-pp_check(glm_post1) #The dark blue line shows the observed data while the light blue lines are simulations from the posterior predictive distribution.
+# look at posterior predictive checks.
+pp_check(glm_post1) 
+```
+
+The dark blue line shows the observed data while the light blue lines are simulations from the posterior predictive distribution. 
+
+```{r}
+# 
+stan_hist(glm_post1, pars=c("(Intercept)","AdultMort", "UnFiveDths", "InfDth","GDP", "BMI", "DTP3", "Pol3", "Schooling", "HIVAids","sigma"), bins=40)
+```
+
+#### Extract posterior samples
+
+```{r}
+post_samps <- as.data.frame(glm_post1, pars=c("(Intercept)","AdultMort", "UnFiveDths", "InfDth","GDP", "BMI", "DTP3", "Pol3", "Schooling", "HIVAids","sigma"))
+
+# calculate the median of each column.
+round(apply(post_samps, 2, median),5)
+```
+
+#### Using Frenquentist method to build a regression model
+
+```{r}
+glm_fit <- glm(LifeExp~., data=BLR_data, family=gaussian)
+round(glm_fit$coefficients, 5)
+```
+
+The maximum likelihood estimates for the intercept and slopes are nearly identical to the Bayesian posterior median values.
+
+#### Checking default priors
+
+```{r}
+prior_summary(glm_post1)
 ```
 
 ```{r}
-stan_hist(glm_post1, pars=c("(Intercept)","AdultMort", "UnFiveDths", "InfDth","GDP", "BMI", "DTP3", "Pol3", "Schooling", "HIVAids","sigma"), bins=40)
+# To see how the observed data has changed the parameter estimates
+
+posterior_vs_prior(glm_post1, group_by_parameter = TRUE, pars=c("(Intercept)","AdultMort", "UnFiveDths", "InfDth","GDP", "BMI", "DTP3", "Pol3", "Schooling", "HIVAids","sigma"))
 ```
+
 
 ### Conclusion
 
