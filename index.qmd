@@ -28,45 +28,46 @@ regression model is the frequentist approach. However, this methodology
 defines the probability of uncertain events as the relative frequency of
 their occurrence[@hajek1996mises], and the resulting model parameters
 are derived exclusively from the observed data [@hajek2009fifteen].
-Also, when dealing with a small dataset, the frequentist approach may
-distort parameter estimates and affect the validity of statistical tests
+Additionally, the frequentist approach may distort parameter estimates 
+and affect the validity of statistical tests when dealing with a small datatset
 [@zyphur2015bayesian]. Unlike frequentist method, BLR is a more flexible
 statistical model in that it captures all uncertain variables random
-[@klauenberg2015tutorial] and also known to be used for experiments that
-have small sample sizes [@sugiarto2021determining] and various data
+[@klauenberg2015tutorial] and is also known to be used for experiments
+that have small sample sizes [@sugiarto2021determining] and various data
 types [@kruschke2010bayesian]. Moreover, BLR eliminates the need for
-p-values, offering richer information on parameters, allowing
+p-values, which offers richer information on parameters, and allows for
 simultaneous single change point detection in a multivariate sample
 [@seidou2007bayesian].
 
 The BLR is characterized by viewing parameters as random variables,
 introducing the concept of prior, likelihood, and posterior
-distributions [@permai2018linear; @chen2024positional]. The steps for
-creating a BLR can be found in Figure. 1 [@klauenberg2015tutorial]. The
-BLR method involves multiple steps-essentially, predicting prior values,
-imputting collected data, and obtaining probability in the form of a
-distribution (Posterior distribution) which is proportional to prior
+distributions [@permai2018linear; @chen2024positional]. The BLR method
+involves multiple steps: predicting prior values, imputting collected
+data, and obtaining probability in the form of a distribution. This
+distribution, called the posterior, is proportional to the prior
 distribution multiplied by the likelihood function
 [@baldwin2017introduction]. In BLR, even when utilizing representative
 or informed priors, it is crucial to perform a sensitivity analysis to
 assess the impact of different prior specifications on the posterior
 results. This aims to ensure that the findings are not dependent on the
-choice of prior [@kruschke2021bayesian].Once the experiment is conducted
-and the posterior distribution is obtained, a check on  skewness of the
-distributions, as well as heteroscedasticity. Although scale mixtures of
-normal are often used in regression analysis to capture
-heteroscedasticity and outlier, skew-symmetric scale mixtures of normal
-(SSSM) can capture asymmetrical in addition, making it more robust to
-use in BLR [@rubio2016bayesian]. The posterior distribution is where the
-Markov Chain Monte Carlo (MCMC) method involves simulating random draws
-from the posterior distribution, allowing for exploration of the
-parameter space and estimation of the posterior distribution even in
-complex, high-dimensional models [@robert2018accelerating;
-@rojas2020lose]. Confirming the convergence of MCMC chains is important
-for result reliability. Evidence of convergence provides confidence in
-the validity of the samples[@marcotte2018gibbs]. After obtaining the
-posterior results, inferences can be used for the prior distribution of
-the current/next experiment [@rubio2016bayesian].
+choice of prior [@kruschke2021bayesian]. Once the experiment is
+conducted and the posterior distribution is obtained, the next step is
+to conduct a check on skewness of the distributions, as well as
+heteroscedasticity. Although scale mixtures of normal are often used in 
+regression analysis to capture heteroscedasticity and outliers, 
+skew-symmetric scale mixtures of normal (SSSM) can capture asymmetry, 
+making it more robust to use in BLR [@rubio2016bayesian].
+The posterior distribution is where the Markov Chain Monte Carlo (MCMC)
+method involves simulating random draws from the posterior distribution,
+allowing for exploration of the parameter space and estimation of the
+posterior distribution even in complex, high-dimensional models
+[@robert2018accelerating; @rojas2020lose]. Confirming the convergence of 
+MCMC chains is important for the reliability of the results. Evidence of 
+convergence provides confidence in the validity of the samples[@marcotte2018gibbs].
+After obtaining the posterior results, inferences can be used for the
+prior distribution of the current/next experiment [@rubio2016bayesian].
+The steps for creating a BLR can be found in Figure. 1
+[@klauenberg2015tutorial].
 
 ![Figure. 1 Bayesian Linear Regression Workflow](images/intro_pic.png)
 
@@ -80,24 +81,24 @@ are also plausible, resulting in a wider credibility interval for the
 95% range of probable parameter estimates [@shetty2013evidence;
 @gill2002bayesian].
 
-Given the strengths of Bayesian linear regression, it has been used in
-many disciplines. Researchers have the option to incorporate past
-findings as informative priors, a practice observed in fields such as
-construction and biomedicine. This analytical approach produces outcomes
-that amalgamate previous results with the data from a present study,
-treating it as if all existing datasets were collectively analyzed. An
-example of using BLR includes determining correction coefficients to
-previously inaccurate concrete mixture formulas to ensure the correct
-use and amount of chemicals to prevent and then predict the breakdown of
-the concrete [@zgheib2019bayesian]. Another example of BLR is
-re-determining traffic-flow rate values for vehicles to ensure traffic
-flow and the safe number of vehicles at intersections so that the
-previous rate values from over 20 years ago could be updated
-[@sugiarto2021determining]. BLR can also be used to determine the load
-and strain a bridge can take before it is unsafe to be
-used[@zhang2022long]. It also can be helpful to predict genetic values
-for genomic selection for plants and animals to prevent the risk of
-passing on genes that could cause illnesses [@perez2010genomic].
+BLR has been used in many disciplines due to its numerous strengths.
+Researchers have the option to incorporate past findings as informative
+priors, a practice observed in fields such as construction and
+biomedicine. This analytical approach produces outcomes that amalgamate
+previous results with the data from a present study, treating it as if
+all existing datasets were collectively analyzed. An example of using
+BLR includes determining correction coefficients to previously
+inaccurate concrete mixture formulas to ensure the correct use and
+amount of chemicals to prevent and then predict the breakdown of the
+concrete [@zgheib2019bayesian]. Another example of BLR is re-determining
+traffic-flow rate values for vehicles to be able to ensure optimal
+traffic flow and minimize to a safe number of vehicles at intersections,
+which allows for the previous rate values from over 20 years ago to be
+updated [@sugiarto2021determining]. BLR can also be used to determine
+the load and strain a bridge can take before it is unsafe to be used
+[@zhang2022long], and it can be helpful to predict genetic values for
+genomic selection for plants and animals to prevent the risk of passing
+on genes that could cause illnesses [@perez2010genomic].
 
 ## 2. Methods
 
@@ -105,18 +106,18 @@ passing on genes that could cause illnesses [@perez2010genomic].
 
 Regression analysis is a statistical method that allows to examine the
 relationship between two or more variables of interest. Suppose the
-response variable $y$ is a function of several predictor variables,
+response variable $Y$ is a function of several predictor variables,
 $x_{i1}, x_{i2},..., x_{ik}$.
 
 To fit a model:
 
 $$
-y = X \beta + \epsilon     \quad(1)
+Y = X \beta + \epsilon     \quad(1)
 $$
 
 where,
 
-$y = (y_1, y_2,..., y_n)$ is the n×1 vector of response; $x$ is a n×p
+$Y = (y_1, y_2,..., y_n)$ is the n×1 vector of response; $X$ is a n×p
 design matrix, $p = k+1$; $\beta = (\beta_0, \beta_1,...., \beta_{k})$
 is the (k+1)×1 vector of parameters and
 $\epsilon = (\epsilon_1, \epsilon_2,...., \epsilon_n)$ the n×1 vector of
@@ -146,15 +147,15 @@ $$
 
 where,
 
-y, assumed as a normal distribution centered by its mean and variance.
-In linear regression, the mean is calculated by the transpose of the
-weight matrix and the predictor matrix. The variance is determined by
-squaring the standard deviation $\sigma$ and then multiplying it by the
-identity matrix.
+y, which is assumed as a normal distribution centered by its mean and
+variance. In linear regression, the mean is calculated by the transpose
+of the weight matrix and the predictor matrix. The variance is
+determined by squaring the standard deviation $\sigma$ and then
+multiplying it by the identity matrix.
 
-Also, the parameters in the model are generated from a probability
-distribution. The posterior probability of these parameters is
-proportional to the prior and likelihood.
+Additionally, the parameters in the model are generated from a probability 
+distribution. The posterior probability of these parameters is proportional 
+to the prior and likelihood [@minka2000bayesian].
 
 $$
 P(\beta|y, X) = \frac{P(y|\beta, X) × P(\beta|X)}{P(y|X)}  \quad(4)
@@ -169,7 +170,7 @@ $$
 f(\beta, \sigma^2|y,x) = \frac{f_y(y|x, \beta,\sigma^2)f(\beta|\sigma^2,m,V)f(\sigma^2|a,b)}{f_y(y)}  \quad(5)
 $$
 
-Let's break down the equation.
+The equation can be broken down as,
 
 -   $f(\beta, \sigma^2|y,x)$: This is the joint posterior distribution
     of the coefficients $\beta$ and the error variance $\sigma^2$ given
@@ -214,68 +215,74 @@ $$
 
 ### 3.1 Data Introduction
 
-The selected Life Expectancy dataset from the World Health Organization
-(WHO) comprises of 19 health, economic, and social factors taken from
-193 countries between years 2000 and 2015, as described below:
+We chose the Life Expectancy dataset from the World Health Organization (WHO) 
+which comprises of 19 health, economic, and social factors taken from 193 
+countries between years 2000 and 2015. Below is a description of the variables: 
 
--   **Country:** List of the 179 countries.
 
--   **Region:** 179 countries are distributed in 9 regions.
+-   **Country:** Categorical, one of 179 countries included in the
+    dataset specific to data collection location.
 
--   **Year:** Years observed from 2000 to 2015.
+-   **Region:** Categorical, one of 9 regions specific to data
+    collection location.
 
--   **Infant Deaths (InfDth):** Represents infant deaths per 1000
-    population.
+-   **Year:** Continuous, range from 2000 to 2015.
 
--   **Under_five_deaths (UnFiveDths):** Represents deaths of children
-    under five years old per 1000 population.
+-   **Infant Deaths (InfDth):** Continuous, per 1000 population
 
--   **Adult Mortality (AdultMort):** Represents deaths of adults per
-    1000 population.
+-   **Under_five_deaths (UnFiveDths):** Continuous, number of deaths of
+    children under 5 years of age per 1000 population
 
--   **Alcohel_consumption:** Represents alcohol consumption that is
-    recorded in liters of pure alcohol per capita with 15+ years old.
+-   **Adult Mortality (AdultMort):** Continuous, rate of deaths of
+    adults per 1000 population
 
--   **Hepatites_B:** Represents % of coverage of Hepatitis B (HepB3)
-    immunization among 1-year-olds.
+-   **Alcohel_consumption:** Continuous, recorded per capita (15+ year
+    olds) consumption in litres of pure alcohol.
 
--   **Measles:** Represents % of coverage of Measles containing vaccine
-    first dose (MCV1) immunization among 1-year-olds.
+-   **Hepatites B (HepB):** Continuous, percentage of Hepatitis B (HepB)
+    immunization coverage among 1-year-olds.
 
--   **BMI:** BMI is a measure of nutritional status in adults.
+-   **Measles:** Continuous, percentage of coverage of Measles
+    containing vaccine first dose (MCV1) immunization among 1-year-olds.
 
--   **Polio (Pol3):** Represents % of coverage of Polio (Pol3)
-    immunization among 1-year-olds.
+-   **BMI:** Continuous, average body mass index (BMI) of entire
+    population; measure of nutritional status in adults.
 
--   **Diphtheria (DTP3):** Continuous, percentage of diphtheria tetanus
-    toxoid and pertussis (DTP3) immunization coverage among 1-year-olds.
+-   **Polio :** Continuous, percentage of Polio (Pol3) immunization
+    coverage among 1-year-olds.
 
--   **Diphtheria (DTP3):** Represents % of coverage of Diphtheria
-    tetanus toxoid and pertussis (DTP3) immunization among 1-year-olds.
+-   **Diphtheria :** Continuous, percentage of diphtheria tetanus toxoid
+    and pertussis (DTP3) immunization coverage among 1-year-olds.
 
--   **Incidents_HIV (HIVAids):** Incidents of HIV per 1000 population
-    aged 15-49.
+-   **Incidents_HIV (HIVAids):** continuous, incidents of HIV per 1000
+    population, ages 15-49.
 
--   **GDP_per_capita (GDP):** GDP per capita in current USD.
+-   **GDP_per_capita (GDP):** Continuous, GDP per capita in USD.
 
 -   **Population_mln (Population):** Total population in millions.
 
--   **Thinness_ten_nineteen_years (ThinAd):** Prevalence of thinness
-    among adolescents aged 10-19 years
+-   **Thinness_ten_nineteen_years (ThinAd):** Continuous, prevalence of
+    thinness among children and adolescents for ages 10 to 19, %.
 
--   **Thinness_five_nine_years (ThinChild):** Prevalence of thinness
-    among children aged 5-9 years.
+-   **Thinness_five_nine_years (ThinChild):** Continuous, prevalence of
+    thinness among children for ages 5 to 9, %.
 
--   **Schooling:** Average years that people aged 25+ spent in formal
-    education.
+-   **Economy_status_Developed:** Categorical, Binomial; Developed
+    Country.
 
--   **Life_expectancy (LifeExp):** Average life expectancy of both
-    genders in different years from 2010 to 2015.
+-   **Economy_status_Developing:** Categorical, Binomial; Developing
+    Country.
+
+-   **Schooling:** Continuous, average years that people aged 25+ spent
+    in formal education.
+
+-   **Life_expectancy (LifeExp):** Continuous, average of the population
+    of both genders in years.
 
 #### 3.1.1 Load the dataset and inspect the first five records.
 
 ```{r, warning=FALSE, echo=T, message=FALSE}
-# loading packages 
+# loading the packages required for data cleaning and BLR analysis.
 library(tidyverse)
 library(gtsummary)
 library(skimr)
@@ -287,21 +294,24 @@ library(ggrepel)
 library(rstan)
 library(rstanarm)
 library(bayesplot)
-```
 
-```{r, warning=FALSE, echo=TRUE}
 # Read CSV file directly from a website URL
+
 url = "C:/Users/shiji/OneDrive/桌面/STA6257_capstone/Life-Expectancy-Data-Updated.csv"
 ledata = read.csv(url, header = TRUE)
-ledata <- ledata %>% select(-c('Economy_status_Developed', 'Economy_status_Developing'))
 
-names(ledata) <- c("Country", 'Region',"Year", "InfDth","UnFiveDths","AdultMort", "Alcohol","HepB","Measles","BMI","Pol3", "DTP3", "HIVAids", "GDP", "population","ThinAd","ThinChild","Schooling", "LifeExp")
+
+
+names(ledata) <- c("Country", 'Region',"Year", "InfDth","UnFiveDths","AdultMort", "Alcohol","HepB","Measles","BMI","Polio", "Diphtheria", "HIV", "GDP", "population","ThinAd","ThinChild","Schooling",'Developing','Developed', "LifeExp")
 str(ledata)
 ```
 
 ### 3.2 Exploration Data Analysis
 
 #### 3.2.1 Summarize the Dataset
+
+Table 1 below describes each continuous variable from the Life
+Expectancy dataset by region.
 
 ```{r, warning=FALSE, echo=T, message=FALSE}
 ledata %>% select(-c('Country', 'Year')) %>%
@@ -312,16 +322,18 @@ ledata %>% select(-c('Country', 'Year')) %>%
                  AdultMort ~ "Adult Mortality Probability",
                  Alcohol ~ "Alcohol Consumption (L)",
                  HepB ~ "Hepatitis B Immunization (%)",
-                 Measles ~ "Measles Cases per 1000",
+                 Measles ~ "Measles Immunization (%)",
                  BMI ~ "Average Body Mass Index", 
-                 Pol3 ~ "Polio immunization (%)", 
-                 DTP3 ~ "Diphtheria Tetanus Toxoid and Pertussis immunization (%)", 
-                 HIVAids ~ "Deaths per 1000 live births HIV/AIDs",
+                 Polio ~ "Polio immunization (%)", 
+                 Diphtheria ~ "Diphtheria Tetanus Toxoid and Pertussis immunization (%)", 
+                 HIV ~ "Incidents of HIV per 1000",
                  GDP ~ "Gross Domestic Product (USD)",
-                 population ~ "Total population of the country", 
+                 population ~ "Population, in millions", 
                  ThinAd ~ "Thinness among 10-19 years (%)",
                  ThinChild ~ "Thinness among 5-9 years (%)",
                  Schooling ~ "Average Years of Schooling",
+                 Developed ~ "Developed Country",
+	               Developing ~ "Developing Country",
                  LifeExp ~ "Life Expectancy (yrs)"),
     missing_text = "(Missing)",
     statistic = list(
@@ -333,23 +345,33 @@ ledata %>% select(-c('Country', 'Year')) %>%
   add_overall()%>%
   modify_header(label="**Variable**") %>%
   modify_caption("**Table 1. Dataset Summary**") %>%
-  modify_footnote(all_stat_cols()~ "Mean (SD) or n/N(%)") %>%
+  modify_footnote(all_stat_cols()~ "Mean (SD)") %>%
   bold_labels()
 ```
 
 #### 3.2.2 Verify the correlation among variables.
 
 ```{r}
-ledata_noNA <- na.omit(ledata)
-co_ledata <- ledata_noNA %>% select(-c('Country', 'Region', 'Year'))
-cor(co_ledata)
-corrplot::corrplot(cor(co_ledata), method = 'color')
+# Checking the correlation between those continuous variables and life expectancy.
+# Remove these categorical variables from dataset.
+ledata_continuous <- ledata %>% select(-c('Country', 'Region', 'Year', 'Developing', 'Developed'))
+
+# Remove NA values from ledata_continuous
+ledata_noNA <- na.omit(ledata_continuous)
+#co_ledata <- ledata_noNA %>% select(-c('Country', 'Region', 'Year'))
+
+# Compute correlation of continuous variables and life expectancy
+cor(ledata_noNA)
+
+# Visualize correlation matrix
+
+ggcorrplot::ggcorrplot(round(cor(ledata_noNA),2), type = 'lower', title = 'Correlation within the lIfe Expectancy dataset', show.legend = TRUE, lab = TRUE, lab_size = 2)
 ```
 
 After conducting a correlation analysis, we identified that the
-variables of AdultMort, UnFiveDths and InfDth strongly associated with
-Life Expectancy. The variable population is not related to
-LifeExpectancy at all. We consider setting threshold of correlation
+variables AdultMort, UnFiveDths and InfDth each have a strong negative
+correlation with Life Expectancy. The variable population is not related
+to LifeExpectancy at all. We consider setting threshold of correlation
 value as 0.55. Any variables' correlation with response greater than
 0.55 can be included for Bayesian Linear Regression. Thus, GDP, BMI,
 DTP3, Pol3, schooling, and HIVAids also can be used to predict
@@ -358,49 +380,36 @@ LifeExpectancy.
 #### 3.2.3 Multicollinearity Examination
 
 ```{r}
-vif_data <- ledata_noNA %>% select(-c('Year', 'Country', 'population'))
-olr <- lm(LifeExp ~., data = vif_data)
+# Build a ordinary linear model for subsequent vif check
+olr <- lm(LifeExp ~., data = ledata_noNA)
+
+# Check Multicollinearity using vif()
 vif(olr)
-BLR_data <- ledata_noNA %>% select(c(AdultMort, UnFiveDths, InfDth,GDP, BMI, DTP3, Pol3, Schooling, HIVAids,LifeExp))
+
+# Extract selected variables for subsequent BLR analysis
+BLR_data <- ledata_noNA %>% select(c(GDP, BMI, Alcohol, Schooling, HIV,LifeExp))
 ```
 
 Through checking the multicollinearity among these variables, the vif
-values of InfDth and UnFiveDths are slightly greater than 5, indicating
-significant multicollinearity between them, but we think they are
-acceptable. Thus, given the results of correlation and multicollinearity
-checking, We select the independent variables of AdultMort, UnFiveDths,
-InfDth,GDP, BMI, DTP3, Pol3, schooling and HIVAid and dependent variable
-of LifeExpentency to contribute to our final dataset used for BLR
-analysis.
+values of InfDth, UnFiveDths, AdultMort, Polio, Diphtheria, ThinAD, and
+ThinChild are greater than 5, indicating significant multicollinearity
+between them. Thus, given the results of correlation and
+multicollinearity checking, we select the independent variables of GDP,
+BMI, Alcohol, schooling and HIV and dependent variable of LifeExpentency
+to contribute to our final dataset used for BLR analysis.
 
 #### 3.2.4 Data Visualization
-
-```{r, warning=FALSE}
-hist(ledata_noNA$LifeExp, 
-     main = "Distribution of Life Expectancy",
-     xlab = "Life Expectancy",
-     border = "white", 
-     col = "lightblue",
-     ylim = c(0, 800))
-```
 
 Life Expectancy follows a distribution skewed to the left, with the peak
 occurring at 70-75 years for the highest life expectancy.
 
-```{r, warning=FALSE, message=FALSE}
-# Calculate max, mean, and min life expectancy by year and region
-life_expectancy_summary <- ledata_noNA %>%
-  group_by(Year, Region) %>%
-  summarise(
-    mean_life_expectancy = mean(LifeExp) )
-
-# Create a line plot for max, mean, and min life expectancy in all regions over the years
-ggplot(life_expectancy_summary, aes(x = Year)) +
-  geom_line(aes(y = mean_life_expectancy, color = Region), linetype = "solid") +
-  labs(title = "Life Expectancy Over the Years by Region", x = "Year", y = "Life Expectancy", color = "Region") +
-  theme_minimal() +
-  scale_color_brewer(palette = "Set1") 
-
+```{r, warning=FALSE}
+hist(ledata_noNA$LifeExp, 
+     main = "Figure 3. Distribution of Life Expectancy (years)",
+     xlab = "Life Expectancy",
+     border = "white", 
+     col = "lightblue",
+     ylim = c(0, 800))
 ```
 
 The line graph illustrates the Life Expectancy trends across various
@@ -409,21 +418,19 @@ expectancy across all regions since 2000. North America and European
 Union exhibit the highest life expectancy, while Africa shows the lowest
 among these regions.
 
-```{r}
-ledata_noNA %>% ggplot(aes(x = Schooling, y = LifeExp)) + 
-  geom_point(size = 0.8, color = 'green') +
-  geom_smooth()+
-  theme_bw()+ 
-  xlab('Average Schooling Year')
+```{r, warning=FALSE, message=FALSE}
+# Calculate max, mean, and min life expectancy by year and region
+life_expectancy_summary <- ledata %>%
+  group_by(Year, Region) %>%
+  summarise(
+    mean_life_expectancy = mean(LifeExp) )
 
-ledata_noNA %>% select(Region, Schooling, LifeExp) %>%
- group_by(Region) %>%
-  summarise(Avg_Schooling = mean(Schooling),
-            Avg_LifeExp = mean(LifeExp)) %>%
-  ggplot(aes(x = Avg_Schooling, y = Avg_LifeExp)) +
-  geom_point(size = 2.5, color = 'blue', alpha = 0.5) +
-  theme_bw() +
-  geom_text_repel(aes(label = Region), size = 3)
+# Create a line plot for max, mean, and min life expectancy in all regions over the years
+ggplot(life_expectancy_summary, aes(x = Year)) +
+  geom_line(aes(y = mean_life_expectancy, color = Region), linetype = "solid") +
+  labs(title = "Figure 4. Regional Life Expectancy by Year (years)", x = "Year", y = "Life Expectancy", color = "Region") +
+  theme_minimal() +
+  scale_color_brewer(palette = "Set1") 
 
 ```
 
@@ -434,23 +441,24 @@ such as North America, the European Union, and the Rest of Europe
 exhibit both higher average schooling years and life expectancies.
 
 ```{r}
-ledata_noNA %>% select(Region,InfDth, AdultMort, LifeExp) %>%
-  ggplot(aes(x = InfDth, y = LifeExp)) + 
-  geom_point(size = 0.5, color = 'orange') +
-  theme_bw() +
-  labs(title = 'Life Expectancy vs. InfDth')
+ledata_noNA %>% ggplot(aes(x = Schooling, y = LifeExp)) + 
+  geom_point(size = 0.8, color = 'green') +
+  geom_smooth()+
+  theme_bw()+ 
+  xlab('Average Schooling Year') +
+  labs(title = 'Figure 5. Life Expectancy versus Formal Education, 2000-2015 (years)')
 
-ledata_noNA %>% select(InfDth, AdultMort, LifeExp) %>%
-  ggplot(aes(x = AdultMort, y = LifeExp)) + 
-  geom_point(size = 0.5, color = 'orange') +
+ledata %>% select(Region, Schooling, LifeExp) %>%
+ group_by(Region) %>%
+  summarise(Avg_Schooling = mean(Schooling),
+            Avg_LifeExp = mean(LifeExp)) %>%
+  ggplot(aes(x = Avg_Schooling, y = Avg_LifeExp)) +
+  geom_point(size = 2.5, color = 'blue', alpha = 0.5) +
   theme_bw() +
-  labs(title = 'Life Expectancy vs. Adult Mortality')
+  geom_text_repel(aes(label = Region), size = 3) +
+  labs(title = 'Figure 6. Life Expectancy versus Formal Education, by Region
+')
 
-ledata_noNA %>% 
-  ggplot(aes(x = UnFiveDths, y = LifeExp)) + 
-  geom_point(size = 0.5, color = 'orange') +
-  theme_bw() +
-  labs(title = 'Life Expectancy vs. UnderFiveDeath')
 ```
 
 The graphs depict the correlation between life expectancy and the
@@ -461,26 +469,38 @@ UnFiveDths, and InfDth per 1000 rise, life expectancy decreases
 accordingly.
 
 ```{r}
-ledata_noNA %>% 
-  ggplot(aes(x = BMI, y = LifeExp)) + 
+ledata %>% select(Region,InfDth, AdultMort, LifeExp) %>%
+  ggplot(aes(x = InfDth, y = LifeExp)) + 
   geom_point(size = 0.5, color = 'orange') +
   theme_bw() +
-  geom_smooth(method = lm) +
-  labs(title = 'Life Expectancy vs. BMI')
+  labs(title = 'Figure 7. Life Expectancy versus Infant Deaths, per 1000 population')
 
-ledata_noNA %>% 
-  ggplot(aes(x = GDP, y = LifeExp)) + 
+ledata %>% select(InfDth, AdultMort, LifeExp) %>%
+  ggplot(aes(x = AdultMort, y = LifeExp)) + 
   geom_point(size = 0.5, color = 'orange') +
   theme_bw() +
-  geom_smooth() +
-  labs(title = 'Life Expectancy vs. GDP')
+  labs(title = 'Figure 8. Life Expectancy versus Adult Mortality, per 1000 population')
 
-ledata_noNA %>% 
-  ggplot(aes(x = Pol3, y = LifeExp)) + 
+ledata %>% 
+  ggplot(aes(x = UnFiveDths, y = LifeExp)) + 
   geom_point(size = 0.5, color = 'orange') +
   theme_bw() +
-  geom_smooth() +
-  labs(title = 'Life Expectancy vs. Diphtheria')
+  labs(title = 'Figure 9. Life Expectancy versus Children Deaths under 5 Years of Age, per 1000 population')
+```
+
+There was no data recorded for the developed regions in south africa,
+Central america and caribbean, and Africa. There was no data recorded on
+developing in the European union region.
+
+```{r}
+ggplot(ledata, aes(x = factor(Developing), y = LifeExp, fill = factor(Developed))) +
+  geom_bar(stat = "summary", fun = "mean", position = "dodge", color = "black", width = 0.7) +
+  labs(title = "Figure 10. Life Expectancy by Economy Status and Region", x = "Economy Status", y = "Mean Life Expectancy") +
+  scale_fill_manual(values = c("skyblue", "salmon"), labels = c("Developing", "Developed")) +
+  theme_minimal() +
+  theme(legend.title = element_blank()) +
+  facet_wrap(~ Region)
+
 ```
 
 In general, a direct relationship typically exists between life
@@ -489,65 +509,123 @@ Moreover, as GDP increases, life expectancy tends to rise exponentially.
 Once GDP surpasses \$30,000, the upward trend in life expectancy
 continues steadily.
 
-## Bayesian Linear Regression Analysis
+```{r}
+ledata %>% 
+  ggplot(aes(x = BMI, y = LifeExp)) + 
+  geom_point(size = 0.5, color = 'orange') +
+  theme_bw() +
+  geom_smooth(method = lm) +
+  labs(title = 'Figure 11. Life Expectancy versus Body Mass Index (BMI) of adults
+')
+
+ledata %>% 
+  ggplot(aes(x = GDP, y = LifeExp)) + 
+  geom_point(size = 0.5, color = 'orange') +
+  theme_bw() +
+  geom_smooth() +
+  labs(title = 'Figure 12. Life Expectancy versus GDP (USD)')
+
+ledata_noNA %>% 
+  ggplot(aes(x = Polio, y = LifeExp)) + 
+  geom_point(size = 0.5, color = 'orange') +
+  theme_bw() +
+  geom_smooth() +
+  labs(title = 'Figure 13. Life Expectancy versus DTP3 immunization coverage among 1-year-olds (%)')
+```
+
+### 3.3 Bayesian Linear Regression Analysis
+
+#### 3.3.1 Create a BLR model
 
 ```{r}
+# BLR model
 glm_post1 <- stan_glm(LifeExp~., data=BLR_data, family=gaussian, seed = 1234)
+glm_post1
 
-stan_trace(glm_post1, pars=c("(Intercept)","AdultMort", "UnFiveDths", "InfDth","GDP", "BMI", "DTP3", "Pol3", "Schooling", "HIVAids","sigma"))
 ```
-Each trace plot to each variable appears centered around one value and all chains are well overlapping around one value.
 
-#### Checking R hat.
+In this analysis, we employ the stan_glm() function from the rstan
+package to establish a Bayesian Linear Regression model. Our dataset
+comprises 2864 observations, consisting of six predictors and one
+response variable.
+
+Upon reviewing the summary, we discern parameter estimates for the
+model. Notably, the model's equation can be represented as follows:
+$LifeExp = 37.5 + 0.9×BMI + 1.2×Schooling + -1.6×HIV$.
+
+#### 3.3.2 Evaluate the performance of BLR model
+
 ```{r}
+# Checking R hat.
 summary(glm_post1)
+
+# Assess the convergence of the MCMC chains and the behavior of the parameters during sampling
+stan_trace(glm_post1, pars=c("(Intercept)", "Alcohol","GDP", "BMI",  "Schooling", "HIV","sigma")) + labs(title = 'Figure 14. Trace Plots of Each Variable')
 ```
 
-R Hat compares the variability in sampled parameter estimates across all chains combined with the variability within each individual change. $R = 1$ shows stability across chains.
+R Hat compares the variability in sampled parameter estimates across all
+chains combined with the variability within each individual change.
+$R = 1$ shows stability across chains.
+
+stan_trace() was used to visualize the traces of parameters estimated by
+Markov chain Monte Carlo (MCMC) sampling. Each trace plot to each
+variable appears centered around one value and all chains are well
+overlapping around one value.
 
 ```{r}
 # look at posterior predictive checks.
 pp_check(glm_post1) 
 ```
 
-The dark blue line shows the observed data while the light blue lines are simulations from the posterior predictive distribution. 
+The dark blue line shows the observed data while the light blue lines
+are simulations from the posterior predictive distribution. Although the
+peaks of both the observed data distribution and the posterior
+distribution align along the x-axis, there's a notable discrepancy in
+the density values along the y-axis.
 
 ```{r}
-# 
-stan_hist(glm_post1, pars=c("(Intercept)","AdultMort", "UnFiveDths", "InfDth","GDP", "BMI", "DTP3", "Pol3", "Schooling", "HIVAids","sigma"), bins=40)
-```
+# View histogram of each parameter
+stan_hist(glm_post1, pars=c("(Intercept)","Alcohol", "GDP", "BMI", "Schooling", "HIV","sigma"), bins=40)
 
-#### Extract posterior samples
+# Extract posterior samples
+post_samps <- as.data.frame(glm_post1, pars=c("(Intercept)","Alcohol", "GDP", "BMI",  "Schooling", "HIV","sigma"))
 
-```{r}
-post_samps <- as.data.frame(glm_post1, pars=c("(Intercept)","AdultMort", "UnFiveDths", "InfDth","GDP", "BMI", "DTP3", "Pol3", "Schooling", "HIVAids","sigma"))
-
-# calculate the median of each column.
+# calculate the median and mean of each parameter
+round(apply(post_samps, 2, mean),5)
 round(apply(post_samps, 2, median),5)
 ```
 
-#### Using Frenquentist method to build a regression model
+Histograms exhibits the distribution of posterior samples obtained from
+the model. We also extracted posterior samples from the model and
+converted to a data frame in order to calculate the the mean and median
+values of each parameter.
 
 ```{r}
+# Checking default priors
+prior_summary(glm_post1)
+
+# To see how the observed data has changed the parameter estimates
+posterior_vs_prior(glm_post1, group_by_parameter = TRUE, pars=c("(Intercept)","Alcohol", "GDP", "BMI", "Schooling", "HIV","sigma"))
+```
+
+#### 3.3.3 Compare with Frenquentist method
+
+```{r}
+# Establish an Ordinary Linear Model
 glm_fit <- glm(LifeExp~., data=BLR_data, family=gaussian)
+summary(glm_fit)
 round(glm_fit$coefficients, 5)
 ```
 
-The maximum likelihood estimates for the intercept and slopes are nearly identical to the Bayesian posterior median values.
+The maximum likelihood estimates of the intercept and slopes are nearly
+identical to the mean or median values of posterior samples obtained
+from Bayesian Linear Regression. Overall, the model's equation can be
+expressed as follows:
+$LifeExp = 37.5 + 0.9×BMI + 1.2×Schooling + -1.6×HIV$.
 
-#### Checking default priors
+## 4. Conclusion
 
-```{r}
-prior_summary(glm_post1)
-```
+In this project, we successfully explored the effects of the predictors on Life expectancy and relationships among them. There is a significant negative relationship between the variables of AdultMort, UnFiveDth, and InfDth and Life expectancy. As the rates of death of adults, infants, and children under 5 years old go up, Life expectancy tends to shorten. Additionally, the rates of thinness of adolescents and adults are also critical factors affecting life expectancy, and there is a negative relationship existing between them. Life expectancy varies depending on the disparity in years of schooling across regions. Generally, life expectancy tends to rise with increase of schooling and higher level of economy development since 2000. Due to the presence of correlation and multicollnearity, We selected only six variables as predictors for conducting Bayesian Linear Regression Analysis.
 
-```{r}
-# To see how the observed data has changed the parameter estimates
-
-posterior_vs_prior(glm_post1, group_by_parameter = TRUE, pars=c("(Intercept)","AdultMort", "UnFiveDths", "InfDth","GDP", "BMI", "DTP3", "Pol3", "Schooling", "HIVAids","sigma"))
-```
-
-
-### Conclusion
-
+In BRL analysis, our model was successful in predicting life expectancy when considering the variables of GDP, BMI, Alcohol, schooling and HIV. The convergence of four chains is strong, and it's centered around a single value, indicating the excellent performance of the model. Moreover, through observing the BLR model, the variables of BMI, Schooling, and HIV have more weight on predicting life expectancy.
 ## References
