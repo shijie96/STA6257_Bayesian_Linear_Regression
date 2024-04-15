@@ -249,7 +249,7 @@ of the variables:
 -   **Polio :** Continuous, percentage of Polio (Pol3) immunization
     coverage among 1-year-olds.
 
--   **Diphtheria (DTP3):** Continuous, percentage of diphtheria tetanus toxoid
+-   **Diphtheria :** Continuous, percentage of diphtheria tetanus toxoid
     and pertussis (DTP3) immunization coverage among 1-year-olds.
 
 -   **Incidents_HIV (HIV):** continuous, incidents of HIV per 1000
