@@ -28,16 +28,16 @@ regression model is the frequentist approach. However, this methodology
 defines the probability of uncertain events as the relative frequency of
 their occurrence[@hajek1996mises], and the resulting model parameters
 are derived exclusively from the observed data [@hajek2009fifteen].
-Additionally, the frequentist approach may distort parameter estimates 
-and affect the validity of statistical tests when dealing with a small datatset
-[@zyphur2015bayesian]. Unlike frequentist method, BLR is a more flexible
-statistical model in that it captures all uncertain variables random
-[@klauenberg2015tutorial] and is also known to be used for experiments
-that have small sample sizes [@sugiarto2021determining] and various data
-types [@kruschke2010bayesian]. Moreover, BLR eliminates the need for
-p-values, which offers richer information on parameters, and allows for
-simultaneous single change point detection in a multivariate sample
-[@seidou2007bayesian].
+Additionally, the frequentist approach may distort parameter estimates
+and affect the validity of statistical tests when dealing with a small
+datatset [@zyphur2015bayesian]. Unlike frequentist method, BLR is a more
+flexible statistical model in that it captures all uncertain variables
+random [@klauenberg2015tutorial] and is also known to be used for
+experiments that have small sample sizes [@sugiarto2021determining] and
+various data types [@kruschke2010bayesian]. Moreover, BLR eliminates the
+need for p-values, which offers richer information on parameters, and
+allows for simultaneous single change point detection in a multivariate
+sample [@seidou2007bayesian].
 
 The BLR is characterized by viewing parameters as random variables,
 introducing the concept of prior, likelihood, and posterior
@@ -53,21 +53,21 @@ results. This aims to ensure that the findings are not dependent on the
 choice of prior [@kruschke2021bayesian]. Once the experiment is
 conducted and the posterior distribution is obtained, the next step is
 to conduct a check on skewness of the distributions, as well as
-heteroscedasticity. Although scale mixtures of normal are often used in 
-regression analysis to capture heteroscedasticity and outliers, 
-skew-symmetric scale mixtures of normal (SSSM) can capture asymmetry, 
-making it more robust to use in BLR [@rubio2016bayesian].
-The posterior distribution is where the Markov Chain Monte Carlo (MCMC)
-method involves simulating random draws from the posterior distribution,
+heteroscedasticity. Although scale mixtures of normal are often used in
+regression analysis to capture heteroscedasticity and outliers,
+skew-symmetric scale mixtures of normal (SSSM) can capture asymmetry,
+making it more robust to use in BLR [@rubio2016bayesian]. The posterior
+distribution is where the Markov Chain Monte Carlo (MCMC) method
+involves simulating random draws from the posterior distribution,
 allowing for exploration of the parameter space and estimation of the
 posterior distribution even in complex, high-dimensional models
-[@robert2018accelerating; @rojas2020lose]. Confirming the convergence of 
-MCMC chains is important for the reliability of the results. Evidence of 
-convergence provides confidence in the validity of the samples[@marcotte2018gibbs].
-After obtaining the posterior results, inferences can be used for the
-prior distribution of the current/next experiment [@rubio2016bayesian].
-The steps for creating a BLR can be found in Figure. 1
-[@klauenberg2015tutorial].
+[@robert2018accelerating; @rojas2020lose]. Confirming the convergence of
+MCMC chains is important for the reliability of the results. Evidence of
+convergence provides confidence in the validity of the
+samples[@marcotte2018gibbs]. After obtaining the posterior results,
+inferences can be used for the prior distribution of the current/next
+experiment [@rubio2016bayesian]. The steps for creating a BLR can be
+found in Figure. 1 [@klauenberg2015tutorial].
 
 ![Figure. 1 Bayesian Linear Regression Workflow](images/intro_pic.png)
 
@@ -153,9 +153,9 @@ of the weight matrix and the predictor matrix. The variance is
 determined by squaring the standard deviation $\sigma$ and then
 multiplying it by the identity matrix.
 
-Additionally, the parameters in the model are generated from a probability 
-distribution. The posterior probability of these parameters is proportional 
-to the prior and likelihood [@minka2000bayesian].
+Additionally, the parameters in the model are generated from a
+probability distribution. The posterior probability of these parameters
+is proportional to the prior and likelihood [@minka2000bayesian].
 
 $$
 P(\beta|y, X) = \frac{P(y|\beta, X) × P(\beta|X)}{P(y|X)}  \quad(4)
@@ -215,10 +215,8 @@ $$
 
 ### 3.1 Data Introduction
 
-We chose the Life Expectancy dataset from the World Health Organization (WHO) 
-which comprises of 19 health, economic, and social factors taken from 193 
-countries between years 2000 and 2015. Below is a description of the variables: 
-
+The selected Life Expectancy dataset from the World Health Organization (WHO) comprises of 21 health, economic, and social factors taken from 179 countries between years 2000 and 2015. Below is a description
+of the variables:
 
 -   **Country:** Categorical, one of 179 countries included in the
     dataset specific to data collection location.
@@ -228,13 +226,13 @@ countries between years 2000 and 2015. Below is a description of the variables:
 
 -   **Year:** Continuous, range from 2000 to 2015.
 
--   **Infant Deaths (InfDth):** Continuous, per 1000 population
+-   **Infant Deaths (InfDth):** Continuous, per 1000 population.
 
 -   **Under_five_deaths (UnFiveDths):** Continuous, number of deaths of
-    children under 5 years of age per 1000 population
+    children under 5 years of age per 1000 population.
 
 -   **Adult Mortality (AdultMort):** Continuous, rate of deaths of
-    adults per 1000 population
+    adults per 1000 population.
 
 -   **Alcohel_consumption:** Continuous, recorded per capita (15+ year
     olds) consumption in litres of pure alcohol.
@@ -254,7 +252,7 @@ countries between years 2000 and 2015. Below is a description of the variables:
 -   **Diphtheria :** Continuous, percentage of diphtheria tetanus toxoid
     and pertussis (DTP3) immunization coverage among 1-year-olds.
 
--   **Incidents_HIV (HIVAids):** continuous, incidents of HIV per 1000
+-   **Incidents_HIV (HIV):** continuous, incidents of HIV per 1000
     population, ages 15-49.
 
 -   **GDP_per_capita (GDP):** Continuous, GDP per capita in USD.
@@ -372,9 +370,10 @@ After conducting a correlation analysis, we identified that the
 variables AdultMort, UnFiveDths and InfDth each have a strong negative
 correlation with Life Expectancy. The variable population is not related
 to LifeExpectancy at all. We consider setting threshold of correlation
-value as 0.55. Any variables' correlation with response greater than
-0.55 can be included for Bayesian Linear Regression. Thus, GDP, BMI,
-DTP3, Pol3, schooling, and HIVAids also can be used to predict
+between \[-1.00 \< -0.55\] and \[0.55 \< 1.00\]. Any variables'
+correlation with response between \[-1.00 \< -0.55\] and \[0.55 \<
+1.00\] can be included for Bayesian Linear Regression. Thus, GDP, BMI,
+DTP3, Pol3, schooling, and HIV also can be used to predict
 LifeExpectancy.
 
 #### 3.2.3 Multicollinearity Examination
@@ -462,11 +461,10 @@ ledata %>% select(Region, Schooling, LifeExp) %>%
 ```
 
 The graphs depict the correlation between life expectancy and the
-variables AdultMort, UnFiveDths, and InfDth. All three
-variables---AdultMort, UnFiveDths, and InfDth---exhibit a negative
-relationship with life expectancy. As the instances of AdultMort,
-UnFiveDths, and InfDth per 1000 rise, life expectancy decreases
-accordingly.
+variables AdultMort, UnFiveDths, and InfDth. All three variables exhibit
+a negative relationship with life expectancy. As the instances of
+AdultMort, UnFiveDths, and InfDth per 1000 rise, life expectancy
+decreases accordingly.
 
 ```{r}
 ledata %>% select(Region,InfDth, AdultMort, LifeExp) %>%
@@ -526,7 +524,7 @@ ledata %>%
   labs(title = 'Figure 12. Life Expectancy versus GDP (USD)')
 
 ledata_noNA %>% 
-  ggplot(aes(x = Polio, y = LifeExp)) + 
+  ggplot(aes(x = Diphtheria, y = LifeExp)) + 
   geom_point(size = 0.5, color = 'orange') +
   theme_bw() +
   geom_smooth() +
@@ -544,10 +542,10 @@ glm_post1
 
 ```
 
-In this analysis, we employ the stan_glm() function from the rstan
-package to establish a Bayesian Linear Regression model. Our dataset
-comprises 2864 observations, consisting of six predictors and one
-response variable.
+In this analysis, we employ the **stan_glm()** function from the
+**rstan** package to establish a Bayesian Linear Regression model. Our
+dataset comprises 2864 observations, consisting of six predictors and
+one response variable.
 
 Upon reviewing the summary, we discern parameter estimates for the
 model. Notably, the model's equation can be represented as follows:
@@ -563,14 +561,14 @@ summary(glm_post1)
 stan_trace(glm_post1, pars=c("(Intercept)", "Alcohol","GDP", "BMI",  "Schooling", "HIV","sigma")) + labs(title = 'Figure 14. Trace Plots of Each Variable')
 ```
 
-R Hat compares the variability in sampled parameter estimates across all
-chains combined with the variability within each individual change.
+$\hat{R}$ compares the variability in sampled parameter estimates across
+all chains combined with the variability within each individual change.
 $R = 1$ shows stability across chains.
 
-stan_trace() was used to visualize the traces of parameters estimated by
-Markov chain Monte Carlo (MCMC) sampling. Each trace plot to each
-variable appears centered around one value and all chains are well
-overlapping around one value.
+**stan_trace()** was used to visualize the traces of parameters
+estimated by Markov chain Monte Carlo (MCMC) sampling. Each trace plot
+to each variable appears centered around one value and all chains are
+well overlapping around one value.
 
 ```{r}
 # look at posterior predictive checks.
@@ -625,7 +623,26 @@ $LifeExp = 37.5 + 0.9×BMI + 1.2×Schooling + -1.6×HIV$.
 
 ## 4. Conclusion
 
-In this project, we successfully explored the effects of the predictors on Life expectancy and relationships among them. There is a significant negative relationship between the variables of AdultMort, UnFiveDth, and InfDth and Life expectancy. As the rates of death of adults, infants, and children under 5 years old go up, Life expectancy tends to shorten. Additionally, the rates of thinness of adolescents and adults are also critical factors affecting life expectancy, and there is a negative relationship existing between them. Life expectancy varies depending on the disparity in years of schooling across regions. Generally, life expectancy tends to rise with increase of schooling and higher level of economy development since 2000. Due to the presence of correlation and multicollnearity, We selected only six variables as predictors for conducting Bayesian Linear Regression Analysis.
+In this project, we successfully explored the effects of the predictors
+on Life expectancy and relationships among them. There were some notable
+observations while conducting our analysis. There was a significant
+negative relationship between adult mortality, infants deaths, deaths
+under five years old, and life expectancy. As the rates of death of
+adults, infants, and children under 5 years old go up, Life expectancy
+tends to shorten. Additionally, the rates of thinness of adolescents and
+adults are also critical factors affecting life expectancy, and there is
+a negative relationship existing between them. Life expectancy varies
+depending on the disparity in years of schooling across regions.
+Generally, life expectancy tends to rise with increase of schooling and
+higher level of economy development since 2000. Due to the presence of
+correlation and multicollinearity, We selected only six variables as
+predictors for conducting Bayesian Linear Regression Analysis.
 
-In BRL analysis, our model was successful in predicting life expectancy when considering the variables of GDP, BMI, Alcohol, schooling and HIV. The convergence of four chains is strong, and it's centered around a single value, indicating the excellent performance of the model. Moreover, through observing the BLR model, the variables of BMI, Schooling, and HIV have more weight on predicting life expectancy.
+In BRL analysis, our model was successful in predicting life expectancy
+when considering the variables of GDP, BMI, Alcohol, schooling and HIV.
+The convergence of four chains is strong, and it's centered around a
+single value, indicating the excellent performance of the model.
+Moreover, through observing the BLR model, the variables of BMI,
+Schooling, and HIV have more weight on predicting life expectancy.
+
 ## References
