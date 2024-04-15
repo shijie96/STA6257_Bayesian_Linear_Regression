@@ -5,9 +5,6 @@ date: '`r Sys.Date()`'
 format:
   html:
     toc: true
-    other-links:
-      - text: Slides
-        href: https://github.com/SAT6257-ShijieGeng/STA6257_Bayesian_Linear_Regression/blob/main/indextoslides%20(3).html
     code-fold: true
 course: STA 6257 - Advanced Statistical Modeling
 bibliography: references.bib # file contains bibtex for references
@@ -20,6 +17,8 @@ editor:
   markdown: 
     wrap: 72
 ---
+
+[Slides](indextoslides(3).html)
 
 ## 1. Introduction
 
@@ -219,8 +218,10 @@ $$
 
 ### 3.1 Data Introduction
 
-The selected Life Expectancy dataset from the World Health Organization (WHO) comprises of 21 health, economic, and social factors taken from 179 countries between years 2000 and 2015. Below is a description
-of the variables:
+The selected Life Expectancy dataset from the World Health Organization
+(WHO) comprises of 21 health, economic, and social factors taken from
+179 countries between years 2000 and 2015. Below is a description of the
+variables:
 
 -   **Country:** Categorical, one of 179 countries included in the
     dataset specific to data collection location.
