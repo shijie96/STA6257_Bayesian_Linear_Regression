@@ -474,8 +474,8 @@ What is the impact of schooling on the lifespan of humans?
 #| echo: false
 #| eval: true
 #| layout-ncol: 2
-#| fig-height: 4
-#| fig-width: 4
+#| fig-height: 5
+#| fig-width: 6
 # Life Expectancy versus Formal Education, 2000-2015 (years)
 ledata %>% ggplot(aes(x = Schooling, y = LifeExp)) + 
   geom_point(size = 0.8, color = 'green') +
@@ -505,7 +505,7 @@ How does Infant and Adult mortality rates affect life expectancy?
 #| eval: true
 #| layout-ncol: 2
 #| fig-width: 9
-#| fig-height: 6
+#| fig-height: 5
 
 # Life Expectancy versus Infant Deaths, per 1000 population
 ledata %>% select(Region,InfDth, AdultMort, LifeExp) %>%
