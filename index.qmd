@@ -574,7 +574,7 @@ stan_trace(glm_post1, pars=c("(Intercept)", "Alcohol","GDP", "BMI",  "Schooling"
 
 $\hat{R}$ compares the variability in sampled parameter estimates across
 all chains combined with the variability within each individual change.
-$R = 1$ shows stability across chains.
+$\hat{R} = 1$ shows stability across chains.
 
 The **stan_trace()** function was used to visualize the traces of
 parameters estimated by Markov chain Monte Carlo (MCMC) sampling. Each
