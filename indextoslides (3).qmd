@@ -28,6 +28,8 @@ editor:
     -   Regression Analysis Basics
     -   BLR Basics
 -   Analysis
+    -   Exploration Data Analysis
+    -   BLR Analysis
 -   Conclusion
 :::
 
