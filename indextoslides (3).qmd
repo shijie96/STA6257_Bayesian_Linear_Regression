@@ -23,7 +23,6 @@ editor:
     -   What is Bayesian Linear Regression?
     -   How it works
     -   Benefits of BLR
-    -   Use cases of BLR
 -   Methods
     -   Regression Analysis Basics
     -   BLR Basics
@@ -34,8 +33,7 @@ editor:
 :::
 
 ::: {.column width="55%"}
-![<a href="https://sat6257-shijiegeng.github.io/STA6257_Bayesian_Linear_Regression/" target="_blank">Image
-Source</a>](BLR_ours.png)
+![](images/posterior%20curves.png)
 :::
 :::
 
@@ -48,8 +46,7 @@ for understanding the relationship between independent and dependent
 variables based on Bayes Theorem while handling uncertainties with
 accuracy and interpretability[@walker2007application].
 
-![<a href="https://www.freecodecamp.org/news/bayes-rule-explained/" target="_blank">Image
-Source</a>](blr_equation.png)
+![](images/formula.png)
 
 ## How it works {.smaller}
 
@@ -66,8 +63,7 @@ Source</a>](blr_equation.png)
 :::
 
 ::: {.column width="55%"}
-![<a href="https://sat6257-shijiegeng.github.io/STA6257_Bayesian_Linear_Regression/" target="_blank">Image
-Source</a>](intro_pic.png)
+![](images/image_1-01.png)
 :::
 :::
 
@@ -152,13 +148,11 @@ multiplied by the likelihood function [@baldwin2017introduction].
 ::: {.column width="50%"}
 -   Construction
 -   Transportation Engineering
--   Biomedicine ![Image Source](biomedicine.gif){.absolute width="300"
-    height="400"}
+-   Biomedicine ![](images/biomedicine%20(2).gif)
 :::
 
 ::: {.column width="50%"}
-![<a href="https://phys.org/news/2015-04-framework-optimizing-traffic-road-revolution.html">Image
-Source</a>](traffic_flow.jpg)
+![](images/traffic_flow.jpg)
 :::
 :::
 
