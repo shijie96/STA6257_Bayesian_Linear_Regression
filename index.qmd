@@ -18,7 +18,7 @@ editor:
     wrap: 72
 ---
 
-[Slides](indextoslides (3).html)
+[Slides](indextoslides%20(3).html)
 
 ## 1. Introduction
 
