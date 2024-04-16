@@ -7,6 +7,7 @@ format:
     theme: dark
     transition: slide
     transition-speed: fast
+    embed-resources: true
     footer: <a href="https://sat6257-shijiegeng.github.io/STA6257_Bayesian_Linear_Regression/" target="_blank">Bayesian Linear Regression</a>
     scrollable: true
 editor: 
