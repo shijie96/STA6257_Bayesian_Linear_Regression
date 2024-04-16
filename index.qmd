@@ -1,5 +1,5 @@
 ---
-title: "Bayesian Linear Regression Project"
+title: "Analysis on Life Expectancy using Bayesian Linear Regression"
 author: "Mary Catherine Morrow, Kayla Mota, Summer Dahlen, Shijie Geng"
 date: '`r Sys.Date()`'
 format:
@@ -218,7 +218,7 @@ $$
 
 ### 3.1 Data Introduction
 
-The selected Life Expectancy dataset from the World Health Organization
+The selected life expectancy dataset from the World Health Organization
 (WHO) comprises of 21 health, economic, and social factors taken from
 179 countries between years 2000 and 2015. Below is a description of the
 variables:
@@ -237,7 +237,7 @@ variables:
     children under 5 years of age per 1000 population.
 
 -   **Adult Mortality (AdultMort):** Continuous, rate of deaths of
-    adults per 1000 population.
+    adults between 15 and 60 years old, per 1000 population.
 
 -   **Alcohel_consumption:** Continuous, recorded per capita (15+ year
     olds) consumption in litres of pure alcohol.
@@ -313,8 +313,8 @@ str(ledata)
 
 #### 3.2.1 Summarize the Dataset
 
-Table 1 below describes each continuous variable from the Life
-Expectancy dataset by region.
+Table 1 below describes each continuous variable from the life
+expectancy dataset by region.
 
 ```{r, warning=FALSE, echo=T, message=FALSE}
 ledata %>% select(-c('Country', 'Year')) %>%
@@ -368,18 +368,18 @@ cor(ledata_noNA)
 
 # Visualize correlation matrix
 
-ggcorrplot::ggcorrplot(round(cor(ledata_noNA),2), type = 'lower', title = 'Correlation within the lIfe Expectancy dataset', show.legend = TRUE, lab = TRUE, lab_size = 2)
+ggcorrplot::ggcorrplot(round(cor(ledata_noNA),2), type = 'lower', title = 'Correlation within the life Expectancy dataset', show.legend = TRUE, lab = TRUE, lab_size = 2)
 ```
 
 After conducting a correlation analysis, we identified that the
-variables AdultMort, UnFiveDths and InfDth each have a strong negative
-correlation with Life Expectancy. The variable population is not related
-to LifeExpectancy at all. We consider setting threshold of correlation
-between \[-1.00 \< -0.55\] and \[0.55 \< 1.00\]. Any variables'
-correlation with response between \[-1.00 \< -0.55\] and \[0.55 \<
-1.00\] can be included for Bayesian Linear Regression. Thus, GDP, BMI,
-DTP3, Pol3, schooling, and HIV also can be used to predict
-LifeExpectancy.
+variables adult mortality, deaths under five years old and infant deaths
+each have a strong negative correlation with life expectancy. The
+variable population is not related to life expectancy at all. We
+consider setting threshold of correlation between \[-1.00 \< -0.55\] and
+\[0.55 \< 1.00\]. Any variables' correlation with response between
+\[-1.00 \< -0.55\] and \[0.55 \< 1.00\] can be included for Bayesian
+Linear Regression. Thus, GDP, BMI, Dephtheria, Polio, schooling, and HIV
+also can be used to predict life expectancy.
 
 #### 3.2.3 Multicollinearity Examination
 
@@ -395,16 +395,18 @@ BLR_data <- ledata_noNA %>% select(c(GDP, BMI, Alcohol, Schooling, HIV,LifeExp))
 ```
 
 Through checking the multicollinearity among these variables, the vif
-values of InfDth, UnFiveDths, AdultMort, Polio, Diphtheria, ThinAD, and
-ThinChild are greater than 5, indicating significant multicollinearity
-between them. Thus, given the results of correlation and
-multicollinearity checking, we select the independent variables of GDP,
-BMI, Alcohol, schooling and HIV and dependent variable of LifeExpentency
-to contribute to our final dataset used for BLR analysis.
+values of infant deaths, deaths under five years old, adult mortality,
+Polio, Diphtheria, thinness among those between 10 and 19, and thinness
+among children for ages 5 to 9 are greater than 5, indicating
+significant multicollinearity between them. Thus, given the results of
+correlation and multicollinearity checking, we select the independent
+variables of GDP, BMI, alcohol, schooling and HIV and dependent variable
+of life expentency to contribute to our final dataset used for BLR
+analysis.
 
 #### 3.2.4 Data Visualization
 
-Life Expectancy follows a distribution skewed to the left, with the peak
+Life expectancy follows a distribution skewed to the left, with the peak
 occurring at 70-75 years for the highest life expectancy.
 
 ```{r, warning=FALSE}
@@ -416,7 +418,7 @@ hist(ledata_noNA$LifeExp,
      ylim = c(0, 800))
 ```
 
-The line graph illustrates the Life Expectancy trends across various
+The line graph illustrates the life expectancy trends across various
 regions over the years. There has been a consistent rise in life
 expectancy across all regions since 2000. North America and European
 Union exhibit the highest life expectancy, while Africa shows the lowest
@@ -442,7 +444,7 @@ The graphs depict the correlation between schooling and life expectancy
 across different regions. Generally, life expectancy tends to increase
 with higher levels of schooling. Comparatively, more developed regions
 such as North America, the European Union, and the Rest of Europe
-exhibit both higher average schooling years and life expectancies.
+exhibit both higher average schooling years and life expectancy.
 
 ```{r}
 ledata_noNA %>% ggplot(aes(x = Schooling, y = LifeExp)) + 
@@ -466,10 +468,11 @@ ledata %>% select(Region, Schooling, LifeExp) %>%
 ```
 
 The graphs depict the correlation between life expectancy and the
-variables AdultMort, UnFiveDths, and InfDth. All three variables exhibit
-a negative relationship with life expectancy. As the instances of
-AdultMort, UnFiveDths, and InfDth per 1000 rise, life expectancy
-decreases accordingly.
+variables adult mortality, deaths under five years old and infant
+deaths. All three variables exhibit a negative relationship with life
+expectancy. As the instances of adult mortality, deaths under five years
+old and infant deaths per 1000 rise, life expectancy decreases
+accordingly.
 
 ```{r}
 ledata %>% select(Region,InfDth, AdultMort, LifeExp) %>%
@@ -491,9 +494,9 @@ ledata %>%
   labs(title = 'Figure 9. Life Expectancy versus Children Deaths under 5 Years of Age, per 1000 population')
 ```
 
-There was no data recorded for the developed regions in south africa,
-Central america and caribbean, and Africa. There was no data recorded on
-developing in the European union region.
+There was no data recorded for the developed regions in South Africa,
+Central America and Caribbean, and Africa. There was no data recorded on
+developing in the European Union region.
 
 ```{r}
 ggplot(ledata, aes(x = factor(Developing), y = LifeExp, fill = factor(Developed))) +
@@ -549,12 +552,15 @@ glm_post1
 
 In this analysis, we employ the **stan_glm()** function from the
 **rstan** package to establish a Bayesian Linear Regression model. Our
-dataset comprises 2864 observations, consisting of six predictors and
+dataset comprises 2,864 observations, consisting of six predictors and
 one response variable.
 
 Upon reviewing the summary, we discern parameter estimates for the
 model. Notably, the model's equation can be represented as follows:
-$LifeExp = 37.5 + 0.9×BMI + 1.2×Schooling + -1.6×HIV$.
+
+$$
+LifeExp = 37.5 + 0.9×BMI + 1.2×Schooling + -1.6×HIV
+$$
 
 #### 3.3.2 Evaluate the performance of BLR model
 
@@ -570,10 +576,10 @@ $\hat{R}$ compares the variability in sampled parameter estimates across
 all chains combined with the variability within each individual change.
 $R = 1$ shows stability across chains.
 
-**stan_trace()** was used to visualize the traces of parameters
-estimated by Markov chain Monte Carlo (MCMC) sampling. Each trace plot
-to each variable appears centered around one value and all chains are
-well overlapping around one value.
+The **stan_trace()** function was used to visualize the traces of
+parameters estimated by Markov chain Monte Carlo (MCMC) sampling. Each
+trace plot to each variable appears centered around a single value and
+all chains are well overlapping around a single value.
 
 ```{r}
 # look at posterior predictive checks.
@@ -598,8 +604,8 @@ round(apply(post_samps, 2, mean),5)
 round(apply(post_samps, 2, median),5)
 ```
 
-Histograms exhibits the distribution of posterior samples obtained from
-the model. We also extracted posterior samples from the model and
+The histograms exhibit the distribution of posterior samples obtained
+from the model. We also extracted posterior samples from the model and
 converted to a data frame in order to calculate the the mean and median
 values of each parameter.
 
@@ -624,30 +630,33 @@ The maximum likelihood estimates of the intercept and slopes are nearly
 identical to the mean or median values of posterior samples obtained
 from Bayesian Linear Regression. Overall, the model's equation can be
 expressed as follows:
-$LifeExp = 37.5 + 0.9×BMI + 1.2×Schooling + -1.6×HIV$.
+
+$$
+LifeExp = 37.5 + 0.9×BMI + 1.2×Schooling + -1.6×HIV
+$$
 
 ## 4. Conclusion
 
 In this project, we successfully explored the effects of the predictors
-on Life expectancy and relationships among them. There were some notable
+on life expectancy and relationships among them. There were some notable
 observations while conducting our analysis. There was a significant
 negative relationship between adult mortality, infants deaths, deaths
 under five years old, and life expectancy. As the rates of death of
-adults, infants, and children under 5 years old go up, Life expectancy
+adults, infants, and children under 5 years old go up, life expectancy
 tends to shorten. Additionally, the rates of thinness of adolescents and
 adults are also critical factors affecting life expectancy, and there is
 a negative relationship existing between them. Life expectancy varies
 depending on the disparity in years of schooling across regions.
 Generally, life expectancy tends to rise with increase of schooling and
 higher level of economy development since 2000. Due to the presence of
-correlation and multicollinearity, We selected only six variables as
+correlation and multicollinearity, we selected only six variables as
 predictors for conducting Bayesian Linear Regression Analysis.
 
 In BRL analysis, our model was successful in predicting life expectancy
-when considering the variables of GDP, BMI, Alcohol, schooling and HIV.
+when considering the variables of GDP, BMI, alcohol, schooling and HIV.
 The convergence of four chains is strong, and it's centered around a
 single value, indicating the excellent performance of the model.
 Moreover, through observing the BLR model, the variables of BMI,
-Schooling, and HIV have more weight on predicting life expectancy.
+schooling, and HIV have more weight on predicting life expectancy.
 
 ## References
