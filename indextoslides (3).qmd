@@ -453,7 +453,7 @@ ggplot(life_expectancy_summary, aes(x = Year)) +
 #| fig-width: 9
 #| fig-height: 4
 # Life Expectancy by Economy Status and Region
-ggplot(ledata, aes(x = factor(Developing), y = LifeExp, fill = factor(Developed))) +
+ggplot(ledata, aes(x = factor(Developing), y = LifeExp, fill = factor(Developing))) +
   geom_bar(stat = "summary", fun = "mean", position = "dodge", color = "black", width = 0.7) +
   labs(title = "Life Expectancy by Economy Status and Region", x = "Economy Status", y = "Mean Life Expectancy") +
   scale_fill_manual(values = c("skyblue", "salmon"), labels = c("Developing", "Developed")) +
@@ -461,6 +461,7 @@ ggplot(ledata, aes(x = factor(Developing), y = LifeExp, fill = factor(Developed)
   theme(legend.title = element_blank()) +
   facet_wrap(~ Region) 
 ```
+
 :::
 
 ##  {.smaller}
@@ -618,6 +619,9 @@ vif(olr)
 # Extract selected variables for subsequent BLR analysis
 BLR_data <- ledata_continuous %>% select(c(GDP, BMI, Alcohol, Schooling, HIV,LifeExp))
 ```
+
+Given the results of correlation and multicollinearity checking, we select the independent variables of GDP, BMI, alcohol, schooling and HIV and dependent variable
+of life expectancy to contribute to our final data set used for BLR analysis.
 :::
 
 ## Bayesian Linear Regression Analysis {.smaller}

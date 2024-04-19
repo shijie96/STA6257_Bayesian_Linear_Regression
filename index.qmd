@@ -499,7 +499,7 @@ Central America and Caribbean, and Africa. There was no data recorded on
 developing in the European Union region.
 
 ```{r}
-ggplot(ledata, aes(x = factor(Developing), y = LifeExp, fill = factor(Developed))) +
+ggplot(ledata, aes(x = factor(Developing), y = LifeExp, fill = factor(Developing))) +
   geom_bar(stat = "summary", fun = "mean", position = "dodge", color = "black", width = 0.7) +
   labs(title = "Figure 10. Life Expectancy by Economy Status and Region", x = "Economy Status", y = "Mean Life Expectancy") +
   scale_fill_manual(values = c("skyblue", "salmon"), labels = c("Developing", "Developed")) +
