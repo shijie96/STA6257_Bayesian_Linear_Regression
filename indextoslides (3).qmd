@@ -535,7 +535,7 @@ Does Life Expectancy has positive or negative correlation with
 Diphtheria Immunization coverage, GDP, Body Mass Index etc.?
 
 ::: panel-tabset
-### Diphtheria
+### DTP3
 
 ```{r}
 #| echo: false
@@ -547,7 +547,8 @@ ledata %>%
   geom_point(size = 0.5, color = 'orange') +
   theme_bw() +
   geom_smooth() +
-  labs(title = 'Life Expectancy versus DTP3 immunization coverage among 1-year-olds (%)')
+  labs(title = 'Life Expectancy versus DTP3 immunization coverage among 1-year-olds (%)') + 
+  xlab('DTP3 immunization rate')
 ```
 
 ### GDP

@@ -239,23 +239,23 @@ variables:
 -   **Adult Mortality (AdultMort):** Continuous, rate of deaths of
     adults between 15 and 60 years old, per 1000 population.
 
--   **Alcohel_consumption:** Continuous, recorded per capita (15+ year
+-   **Alcohol_consumption:** Continuous, recorded per capita (15+ year
     olds) consumption in litres of pure alcohol.
 
--   **Hepatites B (HepB):** Continuous, percentage of Hepatitis B (HepB)
-    immunization coverage among 1-year-olds.
+-   **Hepatitis B (HepB):** Continuous, percentage of Hepatitis B (HepB)
+    immunization coverage among 1-year-old.
 
 -   **Measles:** Continuous, percentage of coverage of Measles
-    containing vaccine first dose (MCV1) immunization among 1-year-olds.
+    containing vaccine first dose (MCV1) immunization among 1-year-old.
 
 -   **BMI:** Continuous, average body mass index (BMI) of entire
     population; measure of nutritional status in adults.
 
 -   **Polio :** Continuous, percentage of Polio (Pol3) immunization
-    coverage among 1-year-olds.
+    coverage among 1-year-old.
 
 -   **Diphtheria :** Continuous, percentage of diphtheria tetanus toxoid
-    and pertussis (DTP3) immunization coverage among 1-year-olds.
+    and pertussis (DTP3) immunization coverage among 1-year-old.
 
 -   **Incidents_HIV (HIV):** continuous, incidents of HIV per 1000
     population, ages 15-49.
@@ -536,7 +536,7 @@ ledata_noNA %>%
   geom_point(size = 0.5, color = 'orange') +
   theme_bw() +
   geom_smooth() +
-  labs(title = 'Figure 13. Life Expectancy versus DTP3 immunization coverage among 1-year-olds (%)')
+  labs(title = 'Figure 13. Life Expectancy versus DTP3 immunization coverage among 1-year-olds (%)') + xlab('DTP3 immunization rate')
 ```
 
 ### 3.3 Bayesian Linear Regression Analysis
