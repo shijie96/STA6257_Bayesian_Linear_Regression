@@ -261,7 +261,7 @@ where:
 
 -   $f_y(y|x, \beta,\sigma^2)$ is the likelihood function,
 
--   $f(\beta|\sigma^2,m,V)$ isthe prior distribution for coefficients,
+-   $f(\beta|\sigma^2,m,V)$ is the prior distribution for coefficients,
 
 -   $f(\sigma^2|a,b)$ is the prior distribution for the error variance,
     and
@@ -638,7 +638,7 @@ of life expectancy to contribute to our final data set used for BLR analysis.
 ::: panel-tabset
 ### Observations & Analysis
 
-Our dataset comprises 2,864 observations, consisting of six predictors
+Our dataset comprises 2,864 observations, consisting of five predictors
 and one response variable.
 
 In this analysis, we employ the **stan_glm()** function from the
@@ -744,7 +744,7 @@ stan_hist(glm_post1, pars=c("(Intercept)","Alcohol", "GDP", "BMI", "Schooling", 
 
 ### Median & Mean
 
-In order to calculate the the mean and median values of each parameter,
+In order to calculate the mean and median values of each parameter,
 we extracted posterior samples from the model and converted to a data
 frame .
 
@@ -839,7 +839,7 @@ observations while conducting our analysis.
     since 2000.
 
 -   Due to the presence of correlation and multicollinearity, we
-    selected only six variables as predictors for conducting Bayesian
+    selected only five variables as predictors for conducting Bayesian
     Linear Regression Analysis.
 
 ## Bayesian Linear Regression Analysis Conclusion {.smaller}
