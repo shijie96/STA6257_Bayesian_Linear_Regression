@@ -844,7 +844,7 @@ observations while conducting our analysis.
 
 ## Bayesian Linear Regression Analysis Conclusion {.smaller}
 
--   Our model was successful in predicting life expectancy when
+-   Our model is a perfect fit to the dataset of life expectancy when
     considering the variables of GDP, BMI, Alcohol, schooling and HIV.
 
 -   The convergence of four chains is strong, and it's centered around a

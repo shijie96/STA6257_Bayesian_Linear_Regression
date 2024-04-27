@@ -652,7 +652,7 @@ higher level of economy development since 2000. Due to the presence of
 correlation and multicollinearity, we selected only six variables as
 predictors for conducting Bayesian Linear Regression Analysis.
 
-In BRL analysis, our model was successful in predicting life expectancy
+In BRL analysis, our model is a perfect fit to the dataset of life expectancy
 when considering the variables of GDP, BMI, alcohol, schooling and HIV.
 The convergence of four chains is strong, and it's centered around a
 single value, indicating the excellent performance of the model.
