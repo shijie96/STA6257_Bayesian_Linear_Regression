@@ -1,6 +1,6 @@
 # Project: Analysis on Life Expectancy using Bayesian Linear Regression
 ## Instructions
-This project applies Bayesian Linear Regression to analyze factors affecting life expectancy across different regions. The goal is to build a probabilistic model that quantifies uncertainty while estimating the impact of key predictors such as GDP, healthcare expenditure, literacy rate, and lifestyle factors on life expectancy.This analysis provides a robust probabilistic approach to understanding life expectancy variations, making it more interpretable than traditional regression models. These experiences required proficiency in descriptive analysis, data visualization, bivariate correlation, standardization, and advanced model applications. 
+This project applies Bayesian Linear Regression to analyze factors affecting life expectancy across different regions. The goal is to build a probabilistic model that quantifies uncertainty while estimating the impact of key predictors such as GDP, healthcare expenditure, literacy rate, and lifestyle factors on life expectancy.This analysis provides a robust probabilistic approach to understanding life expectancy variations, making it more interpretable than traditional regression models. It required proficiency in descriptive analysis, data visualization, bivariate correlation, standardization, and advanced model applications. 
 
 
 ## Key Components:
